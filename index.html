@@ -63,11 +63,10 @@ input,select,textarea{font-family:var(--font-b);}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:1rem;margin-bottom:1.5rem;}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;}
 .stat-val{font-family:var(--font-d);font-size:1.8rem;font-weight:800;color:var(--red);}
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.85rem 1.25rem;font-size:0.875rem;transform:translateY(80px);opacity:0;transition:all 0.3s;z-index:999;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.85rem 1.25rem;font-size:0.875rem;transform:translateY(80px);opacity:0;transition:all 0.3s;z-index:999;color:white;}
 .toast.show{transform:translateY(0);opacity:1;}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;}
-.overlay.open{display:flex;}
-.modal-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r2);width:90%;max-width:560px;padding:2rem;}
 </style>
 </head>
 <body>
@@ -76,16 +75,16 @@ input,select,textarea{font-family:var(--font-b);}
   <div class="land-bg"></div>
   <div class="land-grid"></div>
   <div class="land-logo"><div class="pulse-dot"></div>PulseID</div>
-  <div class="land-title">Universal Medical Records <span>Built for Speed.</span></div>
-  <p class="land-sub">Bridge the gap between patient data and doctor access using a unified cloud backend.</p>
+  <div class="land-title">Universal Medical Records <span>Synced Globally.</span></div>
+  <p class="land-sub">A real-time distributed healthcare system for emergency access.</p>
   <div class="portal-cards">
     <div class="portal-card" onclick="enterPortal('patient')">
       <h3>Patient Portal</h3>
-      <p>Manage your clinical history and sync your ID to the global cloud.</p>
+      <p>Manage your health profile and sync your medical data to the universal cloud.</p>
     </div>
     <div class="portal-card" onclick="enterPortal('doctor')">
       <h3>Doctor Portal</h3>
-      <p>Search roll numbers to pull universal medical profiles instantly.</p>
+      <p>Search roll numbers to pull universal medical profiles and log visits instantly.</p>
     </div>
   </div>
 </div>
@@ -102,21 +101,23 @@ input,select,textarea{font-family:var(--font-b);}
     </div>
     <div class="main-content">
       <div class="page active" id="p-page-dashboard">
-        <h2 id="p-dash-greeting">Welcome Back</h2>
+        <h2>Health Summary</h2>
         <div class="stat-grid">
           <div class="stat-card"><div class="stat-val" id="p-stat-visits">0</div><div>Total Visits</div></div>
         </div>
       </div>
       <div class="page" id="p-page-profile">
         <div class="card">
-          <div class="card-title">Personal Information</div>
-          <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="p-name"></div>
-          <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" id="p-roll"></div>
+          <div class="card-title">Detailed Patient Information</div>
+          <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="p-name"></div>
+            <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" id="p-roll"></div>
+          </div>
           <div class="form-group"><label class="form-label">Blood Group</label><input class="form-input" id="p-blood"></div>
           
           <div class="divider"></div>
-          <div class="card-title">Detailed Health Assessment (Forms Integrated)</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="card-title">Health Checklist</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size:0.9rem;">
             <div><input type="checkbox" id="p-cond-heart"> Heart Disease</div>
             <div><input type="checkbox" id="p-cond-diabetes"> Diabetes</div>
             <div><input type="checkbox" id="p-cond-asthma"> Asthma</div>
@@ -126,7 +127,8 @@ input,select,textarea{font-family:var(--font-b);}
           <div class="divider"></div>
           <div class="form-group"><label class="form-label">Primary Insurance Co.</label><input class="form-input" id="p-ins-primary"></div>
           <div class="form-group"><label class="form-label">Policy ID #</label><input class="form-input" id="p-ins-id"></div>
-          <button class="btn btn-primary" onclick="saveProfile()">Save & Sync to Universal Cloud</button>
+          
+          <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;" onclick="saveProfile()">Save & Sync to Universal Cloud</button>
         </div>
       </div>
     </div>
@@ -140,18 +142,18 @@ input,select,textarea{font-family:var(--font-b);}
   </div>
   <div class="app-body">
     <div class="sidebar">
-      <button class="nav-item active" onclick="showPage('d','scan',this)">Scan Patient</button>
+      <button class="nav-item active" onclick="showPage('d','scan',this)">Universal Scan</button>
     </div>
     <div class="main-content">
       <div class="page active" id="d-page-scan">
         <div class="card" style="max-width:500px;">
-          <div class="card-title">Universal Patient Lookup</div>
+          <div class="card-title">Global Patient Search</div>
           <div style="display:flex;gap:10px;">
             <input class="form-input" id="scan-roll-input" placeholder="Enter Roll Number">
-            <button class="btn btn-primary" onclick="scanPatient()">Search Cloud</button>
+            <button class="btn btn-primary" onclick="scanPatient()">⊞ Cloud Search</button>
           </div>
         </div>
-        <div id="scan-result"></div>
+        <div id="scan-result" style="margin-top:1.5rem;"></div>
       </div>
     </div>
   </div>
@@ -160,9 +162,8 @@ input,select,textarea{font-family:var(--font-b);}
 <div class="toast" id="toast"></div>
 
 <script type="module">
-  // 1. FIREBASE INITIALIZATION
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC3XBioqVEUNCT1GQohWHHydGQK4GicEg0",
@@ -177,30 +178,26 @@ input,select,textarea{font-family:var(--font-b);}
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // 2. UNIVERSAL LOGIC
-  const DB = {
-    getPatient(){ 
-      return JSON.parse(localStorage.getItem('pulseid_patient') || '{}');
-    },
-    savePatient(p){
-      localStorage.setItem('pulseid_patient', JSON.stringify(p));
-      this.syncToCloud(p);
-    },
-    async syncToCloud(p) {
-      if (!p.roll) return;
+  // DATABASE UTILITY
+  const PulseDB = {
+    async syncToCloud(patientData) {
+      if (!patientData.roll) return;
       try {
-        await setDoc(doc(db, "patients", p.roll.toUpperCase()), p);
-        showToast('✓ Synced Globally', 'green');
-      } catch (e) { console.error(e); }
+        await setDoc(doc(db, "patients", patientData.roll.toUpperCase()), patientData);
+        showToast('✓ Universal Cloud Sync Successful', 'green');
+      } catch (e) { 
+        console.error(e); 
+        showToast('Cloud Sync Failed', 'red');
+      }
     }
   };
 
-  // 3. CORE APP FUNCTIONS (Exported to Window)
+  // CORE FUNCTIONS - Attached to window so HTML buttons can see them
   window.enterPortal = (type) => {
     document.getElementById('landing').style.display = 'none';
     document.querySelectorAll('.app-shell').forEach(s => s.classList.remove('active'));
     document.getElementById(type + '-shell').classList.add('active');
-    if(type === 'patient') loadProfileFields();
+    if(type === 'patient') loadLocalData();
   };
 
   window.goHome = () => {
@@ -215,7 +212,7 @@ input,select,textarea{font-family:var(--font-b);}
     if(btn) btn.classList.add('active');
   };
 
-  window.saveProfile = () => {
+  window.saveProfile = async () => {
     const p = {
       name: document.getElementById('p-name').value,
       roll: document.getElementById('p-roll').value,
@@ -229,38 +226,49 @@ input,select,textarea{font-family:var(--font-b);}
         bp: document.getElementById('p-cond-bp').checked
       }
     };
-    DB.savePatient(p);
+    localStorage.setItem('pulseid_patient', JSON.stringify(p));
+    await PulseDB.syncToCloud(p);
   };
 
   window.scanPatient = async () => {
     const roll = document.getElementById('scan-roll-input').value.trim().toUpperCase();
     const result = document.getElementById('scan-result');
-    showToast('Searching Cloud...', 'blue');
+    if(!roll) return showToast('Enter a roll number', 'red');
+    
+    showToast('Querying Global Cloud...', 'blue');
     try {
       const docSnap = await getDoc(doc(db, "patients", roll));
       if (docSnap.exists()) {
         const p = docSnap.data();
-        result.innerHTML = `<div class="card"><h3>${p.name}</h3><p>Roll: ${p.roll}</p><p>Blood: ${p.blood}</p><p>Insurance: ${p.insPrimary}</p></div>`;
+        result.innerHTML = `
+          <div class="card">
+            <h3>${p.name}</h3>
+            <p>Roll: ${p.roll}</p>
+            <div class="tag tag-red" style="background:var(--red-dim); padding:4px 8px; border-radius:4px; display:inline-block; margin-top:10px;">${p.blood}</div>
+            <div style="margin-top:10px;">Insurance: ${p.insPrimary} (${p.insId})</div>
+          </div>`;
       } else {
         result.innerHTML = `<div class="card">No global record found for ${roll}</div>`;
       }
     } catch (e) { console.error(e); }
   };
 
-  function loadProfileFields() {
-    const p = DB.getPatient();
-    if(p.name) document.getElementById('p-name').value = p.name;
-    if(p.roll) document.getElementById('p-roll').value = p.roll;
-    if(p.blood) document.getElementById('p-blood').value = p.blood;
-    if(p.insPrimary) document.getElementById('p-ins-primary').value = p.insPrimary;
-    if(p.insId) document.getElementById('p-ins-id').value = p.insId;
+  function loadLocalData() {
+    const local = JSON.parse(localStorage.getItem('pulseid_patient') || '{}');
+    if(local.name) document.getElementById('p-name').value = local.name;
+    if(local.roll) document.getElementById('p-roll').value = local.roll;
+    if(local.blood) document.getElementById('p-blood').value = local.blood;
+    if(local.insPrimary) document.getElementById('p-ins-primary').value = local.insPrimary;
+    if(local.insId) document.getElementById('p-ins-id').value = local.insId;
   }
 
   function showToast(msg, type) {
     const t = document.getElementById('toast');
-    t.textContent = msg; t.className = `toast show`;
+    t.textContent = msg; 
+    t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 </script>
+
 </body>
 </html>
