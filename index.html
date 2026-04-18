@@ -1,170 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PulseID — App</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#0b0c0f; --surface:#13151a; --surface2:#1c1f27; --surface3:#252930;
-  --border:#2a2d36; --border2:#363a45; --red:#e8392e; --red-dim:rgba(232,57,46,0.15);
-  --red-glow:rgba(232,57,46,0.3); --green:#22c97a; --green-dim:rgba(34,201,122,0.12);
-  --amber:#f5a623; --amber-dim:rgba(245,166,35,0.12); --blue:#4e9eff;
-  --blue-dim:rgba(78,158,255,0.12); --text:#f0f0ec; --text2:#9097a8;
-  --text3:#5a6070; --font-d:'Syne',sans-serif; --font-b:'Instrument Sans',sans-serif;
-  --r:12px; --r2:18px;
-}
-html{scroll-behavior:smooth;}
-body{font-family:var(--font-b);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-button{font-family:var(--font-b);cursor:pointer;}
-input,select,textarea{font-family:var(--font-b);}
-
-/* ── LANDING ── */
-#landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden;}
-.land-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(232,57,46,0.07) 0%,transparent 70%);pointer-events:none;}
-.land-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
-.land-logo{font-family:var(--font-d);font-size:1.6rem;font-weight:800;letter-spacing:-0.04em;color:var(--text);display:flex;align-items:center;gap:8px;margin-bottom:3.5rem;}
-.pulse-dot{width:12px;height:12px;border-radius:50%;background:var(--red);animation:pdot 2s ease-in-out infinite;}
-@keyframes pdot{0%,100%{transform:scale(1);box-shadow:0 0 0 0 var(--red-glow);}50%{transform:scale(1.3);box-shadow:0 0 0 6px transparent;}}
-.land-title{font-family:var(--font-d);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-0.05em;text-align:center;line-height:1.0;margin-bottom:1.25rem;max-width:700px;}
-.land-title span{color:var(--red);}
-.land-sub{font-size:1.05rem;color:var(--text2);text-align:center;max-width:440px;line-height:1.7;margin-bottom:3rem;font-weight:400;}
-.portal-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%;max-width:580px;}
-.portal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:2rem 1.75rem;cursor:pointer;transition:all 0.2s;text-align:left;display:flex;flex-direction:column;gap:12px;}
-.portal-card:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.4);}
-.portal-card h3{font-family:var(--font-d);font-size:1.15rem;font-weight:700;}
-.portal-card p{font-size:0.825rem;color:var(--text2);line-height:1.55;}
-
-/* ── APP SHELLS ── */
-.app-shell{display:none;flex-direction:column;min-height:100vh;}
-.app-shell.active{display:flex;}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:58px;border-bottom:1px solid var(--border);background:rgba(11,12,15,0.9);backdrop-filter:blur(20px);position:sticky;top:0;z-index:50;}
-.app-body{display:flex;flex:1;overflow:hidden;}
-.sidebar{width:220px;border-right:1px solid var(--border);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:4px;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:0.6rem 0.75rem;border-radius:9px;cursor:pointer;font-size:0.85rem;color:var(--text2);transition:all 0.15s;border:none;background:transparent;width:100%;text-align:left;}
-.nav-item.active{background:var(--surface2);color:var(--text);border-left:2px solid var(--red);}
-.main-content{flex:1;overflow-y:auto;padding:2rem;}
-.page{display:none;}
-.page.active{display:block;}
-
-/* ── CARDS & FORMS ── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem;margin-bottom:1rem;}
-.card-title{font-family:var(--font-d);font-size:0.9rem;font-weight:700;margin-bottom:1rem;}
-.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
-.form-label{font-size:0.75rem;font-weight:600;color:var(--text2);}
-.form-input{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:0.7rem 1rem;font-size:0.875rem;color:var(--text);outline:none;width:100%;}
-.btn{padding:0.65rem 1.4rem;border-radius:9px;font-size:0.875rem;font-weight:600;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px;}
-.btn-primary{background:var(--red);color:white;}
-.btn-back{background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:6px 14px;border-radius:8px;font-size:0.8rem;}
-.divider{height:1px;background:var(--border);margin:1.25rem 0;}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:1rem;margin-bottom:1.5rem;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;}
-.stat-val{font-family:var(--font-d);font-size:1.8rem;font-weight:800;color:var(--red);}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.85rem 1.25rem;font-size:0.875rem;transform:translateY(80px);opacity:0;transition:all 0.3s;z-index:999;color:white;}
-.toast.show{transform:translateY(0);opacity:1;}
-</style>
-</head>
-<body>
-
-<div id="landing">
-  <div class="land-bg"></div>
-  <div class="land-grid"></div>
-  <div class="land-logo"><div class="pulse-dot"></div>PulseID</div>
-  <div class="land-title">Universal Medical Records <span>Synced Globally.</span></div>
-  <p class="land-sub">A real-time distributed healthcare system for emergency access.</p>
-  <div class="portal-cards">
-    <div class="portal-card" onclick="enterPortal('patient')">
-      <h3>Patient Portal</h3>
-      <p>Manage your health profile and sync your medical data to the universal cloud.</p>
-    </div>
-    <div class="portal-card" onclick="enterPortal('doctor')">
-      <h3>Doctor Portal</h3>
-      <p>Search roll numbers to pull universal medical profiles and log visits instantly.</p>
-    </div>
-  </div>
-</div>
-
-<div id="patient-shell" class="app-shell">
-  <div class="topbar">
-    <div class="topbar-logo">PulseID</div>
-    <button class="btn-back" onclick="goHome()">← Switch Portal</button>
-  </div>
-  <div class="app-body">
-    <div class="sidebar">
-      <button class="nav-item active" onclick="showPage('p','dashboard',this)">Dashboard</button>
-      <button class="nav-item" onclick="showPage('p','profile',this)">My Profile</button>
-    </div>
-    <div class="main-content">
-      <div class="page active" id="p-page-dashboard">
-        <h2>Health Summary</h2>
-        <div class="stat-grid">
-          <div class="stat-card"><div class="stat-val" id="p-stat-visits">0</div><div>Total Visits</div></div>
-        </div>
-      </div>
-      <div class="page" id="p-page-profile">
-        <div class="card">
-          <div class="card-title">Detailed Patient Information</div>
-          <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="p-name"></div>
-            <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" id="p-roll"></div>
-          </div>
-          <div class="form-group"><label class="form-label">Blood Group</label><input class="form-input" id="p-blood"></div>
-          
-          <div class="divider"></div>
-          <div class="card-title">Health Checklist</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size:0.9rem;">
-            <div><input type="checkbox" id="p-cond-heart"> Heart Disease</div>
-            <div><input type="checkbox" id="p-cond-diabetes"> Diabetes</div>
-            <div><input type="checkbox" id="p-cond-asthma"> Asthma</div>
-            <div><input type="checkbox" id="p-cond-bp"> High Blood Pressure</div>
-          </div>
-          
-          <div class="divider"></div>
-          <div class="form-group"><label class="form-label">Primary Insurance Co.</label><input class="form-input" id="p-ins-primary"></div>
-          <div class="form-group"><label class="form-label">Policy ID #</label><input class="form-input" id="p-ins-id"></div>
-          
-          <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;" onclick="saveProfile()">Save & Sync to Universal Cloud</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="doctor-shell" class="app-shell">
-  <div class="topbar">
-    <div class="topbar-logo">PulseID Doctor</div>
-    <button class="btn-back" onclick="goHome()">← Switch Portal</button>
-  </div>
-  <div class="app-body">
-    <div class="sidebar">
-      <button class="nav-item active" onclick="showPage('d','scan',this)">Universal Scan</button>
-    </div>
-    <div class="main-content">
-      <div class="page active" id="d-page-scan">
-        <div class="card" style="max-width:500px;">
-          <div class="card-title">Global Patient Search</div>
-          <div style="display:flex;gap:10px;">
-            <input class="form-input" id="scan-roll-input" placeholder="Enter Roll Number">
-            <button class="btn btn-primary" onclick="scanPatient()">⊞ Cloud Search</button>
-          </div>
-        </div>
-        <div id="scan-result" style="margin-top:1.5rem;"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
 <script type="module">
+  // 1. IMPORT FIREBASE SDKS
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+  // 2. YOUR FIREBASE CONFIG
   const firebaseConfig = {
     apiKey: "AIzaSyC3XBioqVEUNCT1GQohWHHydGQK4GicEg0",
     authDomain: "pulseid-30a49.firebaseapp.com",
@@ -175,100 +14,765 @@ input,select,textarea{font-family:var(--font-b);}
     measurementId: "G-WTKLRJ1488"
   };
 
+  // 3. INITIALIZE FIREBASE & FIRESTORE
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  console.log("✅ Firebase initialized successfully");
 
-  // DATABASE UTILITY
-  const PulseDB = {
-    async syncToCloud(patientData) {
-      if (!patientData.roll) return;
+  // 4. THE UNIVERSAL DATABASE LOGIC
+  const DB = {
+    get(key){ 
+      try{ 
+        return JSON.parse(localStorage.getItem('pulseid_'+key)||'null'); 
+      }catch(e){ 
+        return null; 
+      } 
+    },
+    set(key,val){ 
+      localStorage.setItem('pulseid_'+key, JSON.stringify(val)); 
+    },
+    
+    getPatient(){ 
+      return this.get('patient') || {
+        name:'',roll:'',dob:'',gender:'',blood:'',height:'',weight:'',
+        ecName:'',ecPhone:'',ecRel:'',conditions:'',notes:'',
+        allergies:[],medications:[]
+      }; 
+    },
+
+    getVisits(roll = null){ 
+      const allVisits = this.get('visits') || [];
+      if(roll) return allVisits.filter(v => v.roll.toUpperCase() === roll.toUpperCase());
+      return allVisits;
+    },
+
+    saveVisit(v){ 
+      const vs = this.get('visits') || []; 
+      vs.unshift(v); 
+      this.set('visits', vs); 
+      this.syncToCloud('visit', v); 
+    },
+
+    savePatient(p){ 
+      this.set('patient', p); 
+      this.syncToCloud('patient', p);
+    },
+
+    async syncToCloud(type, data) {
       try {
-        await setDoc(doc(db, "patients", patientData.roll.toUpperCase()), patientData);
-        showToast('✓ Universal Cloud Sync Successful', 'green');
-      } catch (e) { 
-        console.error(e); 
-        showToast('Cloud Sync Failed', 'red');
+        const docId = type === 'patient' ? data.roll : data.id;
+        if (!docId) {
+          console.warn("No docId for sync");
+          return;
+        }
+        await setDoc(doc(db, type + "s", docId.toUpperCase()), data);
+        console.log(`✅ [PulseID] ${type} synced to cloud:`, docId);
+        showToast(`✓ Synced to cloud`, 'green');
+      } catch (e) {
+        console.error("❌ Cloud sync error:", e);
+        showToast(`Cloud sync failed: ${e.message}`, 'red');
       }
     }
   };
 
-  // CORE FUNCTIONS - Attached to window so HTML buttons can see them
-  window.enterPortal = (type) => {
+  // 5. GLOBAL STATE
+  let currentPortal = null;
+  let visitTargetRoll = null;
+  let rxRowCount = 0;
+  let currentViewingPatient = null;
+
+  // 6. UI HELPER FUNCTIONS
+  function showToast(msg, type = 'green') { 
+    const t = document.getElementById('toast'); 
+    t.textContent = msg; 
+    t.className = `toast ${type} show`; 
+    setTimeout(() => t.classList.remove('show'), 3000); 
+  }
+
+  function closeModal(id) { 
+    document.getElementById(id).classList.remove('open'); 
+  }
+
+  function formatDate(iso) { 
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-IN'); 
+  }
+
+  function initials(name) { 
+    return name ? name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() : '?'; 
+  }
+
+  // 7. PORTAL NAVIGATION
+  function enterPortal(type) {
     document.getElementById('landing').style.display = 'none';
-    document.querySelectorAll('.app-shell').forEach(s => s.classList.remove('active'));
-    document.getElementById(type + '-shell').classList.add('active');
-    if(type === 'patient') loadLocalData();
-  };
+    currentPortal = type;
+    const shell = document.getElementById(type + '-shell');
+    shell.classList.add('active');
+    
+    if (type === 'patient') { 
+      loadPatientPortal(); 
+    } else { 
+      loadDoctorPortal(); 
+    }
+  }
 
-  window.goHome = () => {
+  function goHome() {
     document.getElementById('landing').style.display = 'flex';
-    document.querySelectorAll('.app-shell').forEach(s => s.classList.remove('active'));
-  };
+    document.getElementById('patient-shell').classList.remove('active');
+    document.getElementById('doctor-shell').classList.remove('active');
+    currentPortal = null;
+  }
 
-  window.showPage = (portal, page, btn) => {
+  function showPage(portal, page, btn) {
     document.querySelectorAll('#' + portal + '-shell .page').forEach(p => p.classList.remove('active'));
-    document.getElementById(portal + '-page-' + page).classList.add('active');
-    document.querySelectorAll('#' + portal + '-shell .nav-item').forEach(n => n.classList.remove('active'));
-    if(btn) btn.classList.add('active');
-  };
+    const el = document.getElementById(portal + '-page-' + page);
+    if (el) el.classList.add('active');
+    
+    if (btn) {
+      document.querySelectorAll('#' + portal + '-shell .nav-item').forEach(n => n.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    
+    // Load page-specific content
+    if (portal === 'p') {
+      if (page === 'dashboard') loadPatientDashboard();
+      else if (page === 'history') renderPatientHistory();
+      else if (page === 'medications') renderMedList();
+      else if (page === 'allergies') renderAllergyList();
+      else if (page === 'qr') renderQR();
+    } else {
+      if (page === 'dashboard') loadDoctorDashboard();
+      else if (page === 'patients') renderPatientList();
+      else if (page === 'visits') renderVisitLog();
+    }
+  }
 
-  window.saveProfile = async () => {
-    const p = {
-      name: document.getElementById('p-name').value,
-      roll: document.getElementById('p-roll').value,
-      blood: document.getElementById('p-blood').value,
-      insPrimary: document.getElementById('p-ins-primary').value,
-      insId: document.getElementById('p-ins-id').value,
-      conditions: {
-        heart: document.getElementById('p-cond-heart').checked,
-        diabetes: document.getElementById('p-cond-diabetes').checked,
-        asthma: document.getElementById('p-cond-asthma').checked,
-        bp: document.getElementById('p-cond-bp').checked
+  // 8. PATIENT PORTAL FUNCTIONS
+  function loadPatientPortal() { 
+    loadProfileFields(); 
+    loadPatientDashboard(); 
+  }
+
+  function loadProfileFields() {
+    const p = DB.getPatient();
+    const fields = ['name', 'roll', 'dob', 'gender', 'blood', 'height', 'weight', 'ecName', 'ecPhone', 'ecRel', 'conditions', 'notes'];
+    fields.forEach(f => {
+      const el = document.getElementById('p-' + f);
+      if (el) el.value = p[f] || '';
+    });
+  }
+
+  async function saveProfile() {
+    const p = DB.getPatient();
+    const fields = ['name', 'roll', 'dob', 'gender', 'blood', 'height', 'weight', 'ecName', 'ecPhone', 'ecRel', 'conditions', 'notes'];
+    fields.forEach(f => {
+      const el = document.getElementById('p-' + f);
+      if (el) p[f] = el.value.trim();
+    });
+    
+    DB.savePatient(p);
+    updatePatientNav(p);
+    showToast('✓ Profile saved successfully!', 'green');
+    
+    // Refresh dashboard
+    loadPatientDashboard();
+  }
+
+  function updatePatientNav(p) {
+    const init = p.name ? initials(p.name) : '?';
+    const avInit = document.getElementById('p-av-init');
+    const avName = document.getElementById('p-av-name');
+    if (avInit) avInit.textContent = init;
+    if (avName) avName.textContent = p.name || 'My Profile';
+  }
+
+  function loadPatientDashboard() {
+    const p = DB.getPatient();
+    const vs = DB.getVisits(p.roll);
+    
+    // Update stats
+    document.getElementById('p-stat-visits').textContent = vs.length;
+    document.getElementById('p-stat-meds').textContent = p.medications?.filter(m => m.status === 'active').length || 0;
+    document.getElementById('p-stat-allergy').textContent = p.allergies?.length || 0;
+    document.getElementById('p-stat-cond').textContent = p.conditions ? p.conditions.split(',').filter(c => c.trim()).length : 0;
+    
+    // Update greeting
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    document.getElementById('p-dash-greeting').textContent = `${greeting}, ${p.name?.split(' ')[0] || ''}.`;
+    
+    // Show onboarding prompt if profile incomplete
+    const prompt = document.getElementById('p-onboard-prompt');
+    if (prompt) {
+      prompt.style.display = (p.name && p.roll && p.blood) ? 'none' : 'block';
+    }
+    
+    // Critical info
+    const criticalDiv = document.getElementById('p-critical-info');
+    if (criticalDiv) {
+      if (p.allergies?.length || p.conditions) {
+        criticalDiv.innerHTML = `
+          ${p.allergies?.length ? `<div class="tag tag-red" style="margin-bottom:8px;">⚠ ${p.allergies.length} allergies</div>` : ''}
+          ${p.conditions ? `<div><strong>Conditions:</strong> ${p.conditions}</div>` : ''}
+          <div style="margin-top:8px;"><strong>Blood Group:</strong> ${p.blood || 'Not set'}</div>
+          <div><strong>Emergency Contact:</strong> ${p.ecName || 'Not set'} ${p.ecPhone ? '· ' + p.ecPhone : ''}</div>
+        `;
+      } else {
+        criticalDiv.innerHTML = `<div class="empty"><div class="empty-icon">🩺</div><p>No profile set up yet. Add your details in My Profile.</p></div>`;
       }
-    };
-    localStorage.setItem('pulseid_patient', JSON.stringify(p));
-    await PulseDB.syncToCloud(p);
+    }
+    
+    // Recent activity
+    const recentDiv = document.getElementById('p-recent-activity');
+    if (recentDiv) {
+      if (vs.length > 0) {
+        recentDiv.innerHTML = vs.slice(0, 3).map(v => `
+          <div class="tl-item">
+            <div class="tl-date">${formatDate(v.date)}</div>
+            <div class="tl-content">
+              <div class="tl-title">${v.diagnosis || 'Visit'}</div>
+              <div class="tl-sub">${v.chiefComplaint || ''}</div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        recentDiv.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>No visits recorded yet.</p></div>`;
+      }
+    }
+    
+    updatePatientNav(p);
+  }
+
+  function renderPatientHistory() {
+    const p = DB.getPatient();
+    const vs = DB.getVisits(p.roll);
+    const container = document.getElementById('p-history-list');
+    
+    if (container) {
+      if (vs.length === 0) {
+        container.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>No visits recorded yet.</p></div>`;
+        return;
+      }
+      
+      container.innerHTML = vs.map(v => `
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot ${v.severity === 'emergency' ? 'red' : v.severity === 'severe' ? 'amber' : 'green'}"></div></div>
+          <div class="tl-date">${formatDate(v.date)}</div>
+          <div class="tl-content">
+            <div class="tl-title">${v.diagnosis || 'Medical Visit'}</div>
+            <div class="tl-sub">${v.chiefComplaint || ''}</div>
+            <div class="tl-doctor">Dr. ${v.doctor || 'Mehra'} · ${v.vitals || ''}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function renderMedList() {
+    const p = DB.getPatient();
+    const container = document.getElementById('p-med-list');
+    
+    if (container) {
+      if (!p.medications || p.medications.length === 0) {
+        container.innerHTML = `<div class="empty"><div class="empty-icon">💊</div><p>No medications logged yet.</p></div>`;
+        return;
+      }
+      
+      container.innerHTML = p.medications.map(m => `
+        <div class="med-item">
+          <div>
+            <div class="med-name">${m.name} ${m.dosage}</div>
+            <div class="med-detail">${m.frequency} · For: ${m.for || '—'}</div>
+          </div>
+          <div class="med-status">
+            <span class="tag ${m.status === 'active' ? 'tag-green' : 'tag-gray'}">${m.status}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function renderAllergyList() {
+    const p = DB.getPatient();
+    const container = document.getElementById('p-allergy-list');
+    
+    if (container) {
+      if (!p.allergies || p.allergies.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+      
+      container.innerHTML = p.allergies.map(a => `
+        <div class="allergy-chip">
+          ⚠ ${a.name}
+          <span class="tag tag-${a.severity === 'severe' ? 'red' : 'amber'}" style="margin-left:4px;">${a.severity}</span>
+          <span class="rm" onclick="removeAllergy('${a.name}')">✕</span>
+        </div>
+      `).join('');
+    }
+  }
+
+  function addAllergy() {
+    const input = document.getElementById('allergy-input');
+    const severity = document.getElementById('allergy-severity');
+    const name = input.value.trim();
+    
+    if (!name) {
+      showToast('Enter an allergy name', 'red');
+      return;
+    }
+    
+    const p = DB.getPatient();
+    if (!p.allergies) p.allergies = [];
+    
+    if (p.allergies.find(a => a.name.toLowerCase() === name.toLowerCase())) {
+      showToast('Allergy already exists', 'amber');
+      return;
+    }
+    
+    p.allergies.push({ name, severity: severity.value });
+    DB.savePatient(p);
+    
+    input.value = '';
+    renderAllergyList();
+    showToast('Allergy added', 'green');
+  }
+
+  window.removeAllergy = function(name) {
+    const p = DB.getPatient();
+    p.allergies = p.allergies.filter(a => a.name !== name);
+    DB.savePatient(p);
+    renderAllergyList();
+    showToast('Allergy removed', 'green');
   };
 
-  window.scanPatient = async () => {
+  function renderQR() {
+    const p = DB.getPatient();
+    const qrDiv = document.getElementById('qr-visual');
+    const previewDiv = document.getElementById('qr-preview-info');
+    
+    if (qrDiv) {
+      // Simple QR-like grid (visual representation)
+      qrDiv.innerHTML = `
+        <div class="qr-grid">
+          ${Array(49).fill(0).map(() => Math.random() > 0.5 ? '<div class="qr-cell b"></div>' : '<div class="qr-cell w"></div>').join('')}
+        </div>
+        <div style="font-family:monospace;margin-top:8px;font-size:12px;">${p.roll || 'SETUP_PROFILE'}</div>
+      `;
+    }
+    
+    if (previewDiv) {
+      if (p.name && p.roll) {
+        previewDiv.innerHTML = `
+          <div><strong>${p.name}</strong></div>
+          <div style="font-size:0.8rem;color:var(--text2);">${p.roll} · ${p.blood || 'Blood group not set'}</div>
+          <div style="margin-top:8px;">${p.allergies?.length ? '⚠ Allergies: ' + p.allergies.map(a=>a.name).join(', ') : 'No known allergies'}</div>
+          <div>Emergency: ${p.ecName || 'Not set'} ${p.ecPhone || ''}</div>
+        `;
+      } else {
+        previewDiv.innerHTML = `<div class="empty"><p>Set up your profile first to see what shows on your QR.</p></div>`;
+      }
+    }
+  }
+
+  function openMedModal() {
+    document.getElementById('med-modal').classList.add('open');
+  }
+
+  function saveMedication() {
+    const name = document.getElementById('med-name').value.trim();
+    const dose = document.getElementById('med-dose').value.trim();
+    const freq = document.getElementById('med-freq').value;
+    const status = document.getElementById('med-status').value;
+    const medFor = document.getElementById('med-for').value.trim();
+    
+    if (!name) {
+      showToast('Medication name required', 'red');
+      return;
+    }
+    
+    const p = DB.getPatient();
+    if (!p.medications) p.medications = [];
+    
+    p.medications.push({
+      name, dosage: dose, frequency: freq, status, for: medFor,
+      startDate: new Date().toISOString()
+    });
+    
+    DB.savePatient(p);
+    closeModal('med-modal');
+    renderMedList();
+    showToast('Medication saved', 'green');
+    
+    // Clear form
+    document.getElementById('med-name').value = '';
+    document.getElementById('med-dose').value = '';
+    document.getElementById('med-for').value = '';
+  }
+
+  // 9. DOCTOR PORTAL FUNCTIONS
+  function loadDoctorPortal() {
+    loadDoctorDashboard();
+  }
+
+  async function loadDoctorDashboard() {
+    try {
+      const patientsSnap = await getDocs(collection(db, "patients"));
+      const visitsSnap = await getDocs(collection(db, "visits"));
+      
+      const patientCount = patientsSnap.size;
+      const visitCount = visitsSnap.size;
+      
+      let allergyCount = 0;
+      let activeMeds = 0;
+      
+      patientsSnap.forEach(doc => {
+        const p = doc.data();
+        if (p.allergies?.length) allergyCount++;
+        if (p.medications) {
+          activeMeds += p.medications.filter(m => m.status === 'active').length;
+        }
+      });
+      
+      document.getElementById('d-stat-patients').textContent = patientCount;
+      document.getElementById('d-stat-visits').textContent = visitCount;
+      document.getElementById('d-stat-allergies').textContent = allergyCount;
+      document.getElementById('d-stat-active').textContent = activeMeds;
+      
+      // Recent patients
+      const recentDiv = document.getElementById('d-recent-patients');
+      if (recentDiv && patientCount > 0) {
+        const patients = [];
+        patientsSnap.forEach(doc => patients.push(doc.data()));
+        
+        recentDiv.innerHTML = patients.slice(0, 5).map(p => `
+          <div class="patient-row" onclick="viewPatientDetail('${p.roll}')">
+            <div class="pat-av">${initials(p.name)}</div>
+            <div style="flex:1;">
+              <div class="pat-name">${p.name}</div>
+              <div class="pat-meta">${p.roll} · ${p.blood || '—'}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+    } catch (e) {
+      console.error("Dashboard error:", e);
+    }
+  }
+
+  async function scanPatient() {
     const roll = document.getElementById('scan-roll-input').value.trim().toUpperCase();
     const result = document.getElementById('scan-result');
-    if(!roll) return showToast('Enter a roll number', 'red');
     
-    showToast('Querying Global Cloud...', 'blue');
+    if (!roll) { 
+      showToast('Enter a roll number', 'red'); 
+      return; 
+    }
+
+    showToast('Searching database...', 'blue');
+
     try {
       const docSnap = await getDoc(doc(db, "patients", roll));
+
       if (docSnap.exists()) {
         const p = docSnap.data();
-        result.innerHTML = `
-          <div class="card">
-            <h3>${p.name}</h3>
-            <p>Roll: ${p.roll}</p>
-            <div class="tag tag-red" style="background:var(--red-dim); padding:4px 8px; border-radius:4px; display:inline-block; margin-top:10px;">${p.blood}</div>
-            <div style="margin-top:10px;">Insurance: ${p.insPrimary} (${p.insId})</div>
-          </div>`;
+        currentViewingPatient = p;
+        result.style.display = 'block';
+        result.innerHTML = buildPatientDetailCard(p);
+        showToast('Patient found!', 'green');
       } else {
-        result.innerHTML = `<div class="card">No global record found for ${roll}</div>`;
+        result.style.display = 'block';
+        result.innerHTML = `<div class="card"><div class="empty"><p>No patient found with roll number "${roll}"</p><button class="btn btn-primary btn-sm" onclick="createNewPatient('${roll}')">Create New Patient</button></div></div>`;
+        showToast('Patient not found', 'amber');
       }
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error("Scan error:", e);
+      showToast('Error searching: ' + e.message, 'red');
+    }
+  }
+
+  function buildPatientDetailCard(p) {
+    const vs = DB.getVisits(p.roll);
+    
+    return `
+      <div class="profile-hero">
+        <div class="profile-hero-top">
+          <div class="profile-av">${initials(p.name)}</div>
+          <div>
+            <div class="profile-name">${p.name}</div>
+            <div class="profile-meta">${p.roll} · ${p.blood || 'Blood group not set'} · ${p.gender || ''}</div>
+            <div class="profile-tags">
+              ${p.allergies?.length ? `<span class="tag tag-red">⚠ ${p.allergies.length} allergies</span>` : ''}
+              ${p.conditions ? `<span class="tag tag-amber">${p.conditions.split(',')[0]}</span>` : ''}
+            </div>
+          </div>
+        </div>
+        <div class="profile-quick">
+          <div class="pq-item"><div class="pq-label">Allergies</div><div class="pq-val ${p.allergies?.length ? 'danger' : 'ok'}">${p.allergies?.length || 'None'}</div></div>
+          <div class="pq-item"><div class="pq-label">Conditions</div><div class="pq-val">${p.conditions ? p.conditions.split(',').length : '0'}</div></div>
+          <div class="pq-item"><div class="pq-label">Visits</div><div class="pq-val">${vs.length}</div></div>
+          <div class="pq-item"><div class="pq-label">Emergency Contact</div><div class="pq-val">${p.ecName || '—'}</div></div>
+          <div class="pq-item"><div class="pq-label">Blood Group</div><div class="pq-val">${p.blood || '—'}</div></div>
+        </div>
+      </div>
+      
+      ${p.allergies?.length ? `
+        <div class="conflict-box">
+          <div class="conflict-icon">⚠️</div>
+          <div class="conflict-text">
+            <strong>Allergy Alert</strong>
+            ${p.allergies.map(a => `${a.name} (${a.severity})`).join(' · ')}
+          </div>
+        </div>
+      ` : ''}
+      
+      <div class="grid2" style="margin-top:1rem;">
+        <div class="card">
+          <div class="card-title">Recent Visits</div>
+          ${vs.length > 0 ? vs.slice(0, 3).map(v => `
+            <div class="tl-item">
+              <div class="tl-date">${formatDate(v.date)}</div>
+              <div class="tl-content">
+                <div class="tl-title">${v.diagnosis || 'Visit'}</div>
+                <div class="tl-sub">${v.chiefComplaint || ''}</div>
+              </div>
+            </div>
+          `).join('') : '<p class="empty">No visits recorded</p>'}
+        </div>
+        <div class="card">
+          <div class="card-title">Current Medications</div>
+          ${p.medications?.filter(m => m.status === 'active').map(m => `
+            <div class="med-item">
+              <div><span class="med-name">${m.name}</span> <span class="med-detail">${m.dosage}</span></div>
+              <div class="med-detail">${m.frequency}</div>
+            </div>
+          `).join('') || '<p class="empty">No active medications</p>'}
+        </div>
+      </div>
+      
+      <div style="display:flex;gap:10px;margin-top:1rem;">
+        <button class="btn btn-primary" onclick="openVisitModal('${p.roll}')">📋 Log Visit</button>
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Summary</button>
+      </div>
+    `;
+  }
+
+  window.createNewPatient = function(roll) {
+    const p = {
+      name: '',
+      roll: roll,
+      dob: '',
+      gender: '',
+      blood: '',
+      height: '',
+      weight: '',
+      ecName: '',
+      ecPhone: '',
+      ecRel: '',
+      conditions: '',
+      notes: '',
+      allergies: [],
+      medications: []
+    };
+    
+    // Open a form or redirect
+    showToast('Create patient profile in Patient Portal', 'blue');
   };
 
-  function loadLocalData() {
-    const local = JSON.parse(localStorage.getItem('pulseid_patient') || '{}');
-    if(local.name) document.getElementById('p-name').value = local.name;
-    if(local.roll) document.getElementById('p-roll').value = local.roll;
-    if(local.blood) document.getElementById('p-blood').value = local.blood;
-    if(local.insPrimary) document.getElementById('p-ins-primary').value = local.insPrimary;
-    if(local.insId) document.getElementById('p-ins-id').value = local.insId;
+  async function renderPatientList() {
+    const container = document.getElementById('d-patient-list');
+    const searchInput = document.getElementById('pat-search');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    
+    if (!container) return;
+    
+    container.innerHTML = '<div class="empty">Loading patients...</div>';
+
+    try {
+      const querySnapshot = await getDocs(collection(db, "patients"));
+      
+      if (querySnapshot.empty) {
+        container.innerHTML = '<div class="empty"><div class="empty-icon">👥</div><p>No patients registered yet.</p></div>';
+        return;
+      }
+
+      const patients = [];
+      querySnapshot.forEach(doc => patients.push(doc.data()));
+      
+      const filtered = patients.filter(p => 
+        !searchTerm || 
+        p.name?.toLowerCase().includes(searchTerm) || 
+        p.roll?.toLowerCase().includes(searchTerm)
+      );
+      
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="empty"><p>No matching patients</p></div>';
+        return;
+      }
+      
+      container.innerHTML = filtered.map(p => `
+        <div class="patient-row" onclick="viewPatientDetail('${p.roll}')">
+          <div class="pat-av">${initials(p.name)}</div>
+          <div style="flex:1;">
+            <div class="pat-name">${p.name}</div>
+            <div class="pat-meta">${p.roll} · ${p.blood || '—'} · ${p.gender || ''}</div>
+          </div>
+          <div class="pat-right">
+            <div class="pat-last">${p.allergies?.length ? '⚠ Allergies' : ''}</div>
+          </div>
+        </div>
+      `).join('');
+      
+    } catch (e) {
+      console.error("List error:", e);
+      container.innerHTML = '<div class="empty"><p>Error loading patients</p></div>';
+    }
   }
 
-  function showToast(msg, type) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; 
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
+  window.viewPatientDetail = async function(roll) {
+    try {
+      const docSnap = await getDoc(doc(db, "patients", roll.toUpperCase()));
+      if (docSnap.exists()) {
+        const p = docSnap.data();
+        currentViewingPatient = p;
+        const modal = document.getElementById('patient-detail-modal');
+        const content = document.getElementById('patient-detail-content');
+        content.innerHTML = buildPatientDetailCard(p);
+        modal.classList.add('open');
+      }
+    } catch (e) {
+      console.error("View error:", e);
+    }
+  };
+
+  function renderVisitLog() {
+    const container = document.getElementById('d-visit-log');
+    if (!container) return;
+    
+    const visits = DB.getVisits();
+    
+    if (visits.length === 0) {
+      container.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>No visits logged yet.</p></div>';
+      return;
+    }
+    
+    container.innerHTML = visits.map(v => `
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot ${v.severity === 'emergency' ? 'red' : v.severity === 'severe' ? 'amber' : 'green'}"></div></div>
+        <div class="tl-date">${formatDate(v.date)}</div>
+        <div class="tl-content">
+          <div class="tl-title">${v.patientName || v.roll} · ${v.diagnosis || 'Visit'}</div>
+          <div class="tl-sub">${v.chiefComplaint || ''}</div>
+          <div class="tl-doctor">Dr. ${v.doctor || 'Mehra'}</div>
+        </div>
+      </div>
+    `).join('');
   }
+
+  window.openVisitModal = function(roll) {
+    visitTargetRoll = roll;
+    document.getElementById('visit-modal-sub').textContent = `Recording visit for ${roll}`;
+    document.getElementById('v-rx-list').innerHTML = '';
+    rxRowCount = 0;
+    document.getElementById('visit-modal').classList.add('open');
+  };
+
+  window.addRxRow = function() {
+    const container = document.getElementById('v-rx-list');
+    const id = rxRowCount++;
+    container.innerHTML += `
+      <div class="form-row" id="rx-${id}" style="margin-bottom:4px;">
+        <input class="form-input" placeholder="Medication" id="rx-name-${id}" style="flex:2;">
+        <input class="form-input" placeholder="Dose" id="rx-dose-${id}" style="flex:1;">
+        <input class="form-input" placeholder="Freq" id="rx-freq-${id}" style="flex:1;">
+        <button class="btn-ghost btn-sm" onclick="document.getElementById('rx-${id}').remove()">✕</button>
+      </div>
+    `;
+  };
+
+  async function saveVisit() {
+    if (!visitTargetRoll) {
+      showToast('No patient selected', 'red');
+      return;
+    }
+    
+    const visit = {
+      id: 'v_' + Date.now(),
+      roll: visitTargetRoll,
+      patientName: currentViewingPatient?.name || '',
+      date: new Date().toISOString(),
+      chiefComplaint: document.getElementById('v-complaint')?.value || '',
+      diagnosis: document.getElementById('v-diagnosis')?.value || '',
+      severity: document.getElementById('v-severity')?.value || 'mild',
+      vitals: `T:${document.getElementById('v-temp')?.value || '—'} BP:${document.getElementById('v-bp')?.value || '—'} HR:${document.getElementById('v-hr')?.value || '—'}`,
+      notes: document.getElementById('v-notes')?.value || '',
+      doctor: 'Mehra',
+      prescriptions: []
+    };
+    
+    // Collect prescriptions
+    for (let i = 0; i < rxRowCount; i++) {
+      const name = document.getElementById(`rx-name-${i}`)?.value;
+      if (name) {
+        visit.prescriptions.push({
+          name,
+          dose: document.getElementById(`rx-dose-${i}`)?.value || '',
+          freq: document.getElementById(`rx-freq-${i}`)?.value || ''
+        });
+      }
+    }
+    
+    DB.saveVisit(visit);
+    
+    // Also add to patient's medications if prescriptions exist
+    if (currentViewingPatient && visit.prescriptions.length > 0) {
+      if (!currentViewingPatient.medications) currentViewingPatient.medications = [];
+      visit.prescriptions.forEach(rx => {
+        currentViewingPatient.medications.push({
+          name: rx.name,
+          dosage: rx.dose,
+          frequency: rx.freq,
+          status: 'active',
+          for: visit.diagnosis,
+          startDate: new Date().toISOString(),
+          prescribedBy: 'Dr. Mehra'
+        });
+      });
+      
+      // Update patient in cloud
+      try {
+        await setDoc(doc(db, "patients", visitTargetRoll.toUpperCase()), currentViewingPatient);
+      } catch (e) {
+        console.error("Failed to update patient meds:", e);
+      }
+    }
+    
+    closeModal('visit-modal');
+    showToast('Visit saved successfully', 'green');
+    
+    // Refresh displays
+    if (currentPortal === 'd') {
+      loadDoctorDashboard();
+    }
+  }
+
+  // 10. EXPOSE ALL FUNCTIONS TO WINDOW
+  window.enterPortal = enterPortal;
+  window.goHome = goHome;
+  window.showPage = showPage;
+  window.saveProfile = saveProfile;
+  window.loadProfileFields = loadProfileFields;
+  window.scanPatient = scanPatient;
+  window.renderPatientList = renderPatientList;
+  window.closeModal = closeModal;
+  window.openMedModal = openMedModal;
+  window.saveMedication = saveMedication;
+  window.addAllergy = addAllergy;
+  window.renderAllergyList = renderAllergyList;
+  window.openVisitModal = openVisitModal;
+  window.addRxRow = addRxRow;
+  window.saveVisit = saveVisit;
+
+  // Initialize
+  console.log("🚀 PulseID ready with Firebase!");
 </script>
-
-</body>
-</html>
