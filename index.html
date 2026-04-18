@@ -178,24 +178,11 @@ textarea.form-input{resize:vertical;min-height:90px;}
 .tl-sub{font-size:0.78rem;color:var(--text2);line-height:1.5;}
 .tl-doctor{font-size:0.7rem;color:var(--text3);margin-top:4px;}
 
-/* MEDICATION LIST */
-.med-item{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 0;border-bottom:1px solid var(--border);}
-.med-item:last-child{border-bottom:none;}
-.med-name{font-size:0.875rem;font-weight:600;margin-bottom:2px;}
-.med-detail{font-size:0.75rem;color:var(--text2);}
-.med-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
-
 /* ALLERGY CARDS */
 .allergy-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:0.5rem;}
 .allergy-chip{background:var(--red-dim);border:1px solid rgba(232,57,46,0.25);color:var(--red);padding:5px 12px;border-radius:50px;font-size:0.78rem;font-weight:600;display:flex;align-items:center;gap:6px;}
 .allergy-chip .rm{cursor:pointer;opacity:0.6;font-size:0.7rem;transition:opacity 0.2s;}
 .allergy-chip .rm:hover{opacity:1;}
-
-/* DOCTOR SCAN */
-.scan-box{border:2px dashed var(--border2);border-radius:var(--r2);padding:3rem;text-align:center;cursor:pointer;transition:all 0.2s;}
-.scan-box:hover{border-color:var(--blue);background:var(--blue-dim);}
-.scan-icon{font-size:2.5rem;margin-bottom:0.75rem;}
-.scan-hint{font-size:0.875rem;color:var(--text2);}
 
 /* PATIENT LIST */
 .patient-row{display:flex;align-items:center;gap:1rem;padding:0.9rem 1rem;border-radius:10px;cursor:pointer;transition:background 0.15s;border-bottom:1px solid var(--border);}
@@ -204,8 +191,6 @@ textarea.form-input{resize:vertical;min-height:90px;}
 .pat-av{width:36px;height:36px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:0.75rem;font-weight:700;color:var(--text2);flex-shrink:0;}
 .pat-name{font-size:0.875rem;font-weight:600;margin-bottom:2px;}
 .pat-meta{font-size:0.72rem;color:var(--text2);}
-.pat-right{margin-left:auto;text-align:right;}
-.pat-last{font-size:0.7rem;color:var(--text3);}
 
 /* TOAST */
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.85rem 1.25rem;font-size:0.875rem;display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all 0.3s;z-index:999;max-width:320px;}
@@ -223,8 +208,6 @@ textarea.form-input{resize:vertical;min-height:90px;}
 .modal-box{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r2);width:90%;max-width:560px;max-height:90vh;overflow-y:auto;padding:2rem;position:relative;}
 .modal-close{position:absolute;top:1rem;right:1rem;background:var(--surface2);border:1px solid var(--border);border-radius:7px;width:28px;height:28px;color:var(--text2);font-size:0.8rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;}
 .modal-close:hover{background:var(--surface3);color:var(--text);}
-.modal-title{font-family:var(--font-d);font-size:1.25rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px;}
-.modal-sub{font-size:0.825rem;color:var(--text2);margin-bottom:1.5rem;}
 
 /* CONFLICT ALERT */
 .conflict-box{background:var(--red-dim);border:1px solid rgba(232,57,46,0.3);border-radius:10px;padding:1rem;margin-bottom:1rem;display:flex;gap:10px;align-items:flex-start;}
@@ -246,12 +229,10 @@ textarea.form-input{resize:vertical;min-height:90px;}
 .search-bar{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:0.6rem 1rem;margin-bottom:1.25rem;}
 .search-bar input{background:none;border:none;outline:none;color:var(--text);font-size:0.875rem;font-family:var(--font-b);flex:1;}
 .search-bar input::placeholder{color:var(--text3);}
-.search-icon{color:var(--text3);font-size:0.9rem;}
 
 /* EMPTY STATE */
 .empty{text-align:center;padding:3rem 1rem;color:var(--text3);}
 .empty-icon{font-size:2.5rem;margin-bottom:0.75rem;}
-.empty p{font-size:0.875rem;line-height:1.6;}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:5px;}
@@ -268,7 +249,6 @@ textarea.form-input{resize:vertical;min-height:90px;}
 </head>
 <body>
 
-<!-- ══════════════ LANDING ══════════════ -->
 <div id="landing">
   <div class="land-bg"></div>
   <div class="land-grid"></div>
@@ -291,7 +271,6 @@ textarea.form-input{resize:vertical;min-height:90px;}
   </div>
 </div>
 
-<!-- ══════════════ PATIENT SHELL ══════════════ -->
 <div id="patient-shell" class="app-shell">
   <div class="topbar">
     <div class="topbar-logo"><div class="pd"></div>PulseID</div>
@@ -307,17 +286,16 @@ textarea.form-input{resize:vertical;min-height:90px;}
         <div><div class="av-name" id="p-av-name">My Profile</div><div class="av-sub">Patient</div></div>
       </div>
       <div class="sidebar-section">Overview</div>
-      <button class="nav-item active" onclick="showPage('p','dashboard',this)"><span class="ni">⬛</span>Dashboard</button>
-      <button class="nav-item" onclick="showPage('p','profile',this)"><span class="ni">👤</span>My Profile</button>
+      <button class="nav-item active" onclick="showPage('p','dashboard',this)">Dashboard</button>
+      <button class="nav-item" onclick="showPage('p','profile',this)">My Profile</button>
       <div class="sidebar-section">Health</div>
-      <button class="nav-item" onclick="showPage('p','history',this)"><span class="ni">📋</span>Visit History</button>
-      <button class="nav-item" onclick="showPage('p','medications',this)"><span class="ni">💊</span>Medications</button>
-      <button class="nav-item" onclick="showPage('p','allergies',this)"><span class="ni">⚠️</span>Allergies</button>
+      <button class="nav-item" onclick="showPage('p','history',this)">Visit History</button>
+      <button class="nav-item" onclick="showPage('p','medications',this)">Medications</button>
+      <button class="nav-item" onclick="showPage('p','allergies',this)">Allergies</button>
       <div class="sidebar-section">Identity</div>
-      <button class="nav-item" onclick="showPage('p','qr',this)"><span class="ni">⊞</span>My QR / NFC ID</button>
+      <button class="nav-item" onclick="showPage('p','qr',this)">My PulseID</button>
     </div>
     <div class="main-content">
-      <!-- PATIENT DASHBOARD -->
       <div class="page active" id="p-page-dashboard">
         <div class="page-header">
           <div class="page-title" id="p-dash-greeting">Good morning.</div>
@@ -325,148 +303,102 @@ textarea.form-input{resize:vertical;min-height:90px;}
         </div>
         <div id="p-onboard-prompt" style="background:var(--red-dim);border:1px solid rgba(232,57,46,0.25);border-radius:var(--r2);padding:1.5rem;margin-bottom:1.5rem;display:none;">
           <div style="font-family:var(--font-d);font-size:1rem;font-weight:700;margin-bottom:6px;">Complete your profile to get started.</div>
-          <div style="font-size:0.825rem;color:var(--text2);margin-bottom:1rem;">Add your medical details so doctors can help you safely in an emergency.</div>
           <button class="btn btn-primary btn-sm" onclick="showPage('p','profile',null)">Set up profile →</button>
         </div>
-        <div class="stat-grid" id="p-stat-grid">
+        <div class="stat-grid">
           <div class="stat-card red"><div class="stat-val" id="p-stat-visits">0</div><div class="stat-lbl">Total Visits</div></div>
           <div class="stat-card amber"><div class="stat-val" id="p-stat-meds">0</div><div class="stat-lbl">Active Medications</div></div>
           <div class="stat-card green"><div class="stat-val" id="p-stat-allergy">0</div><div class="stat-lbl">Logged Allergies</div></div>
           <div class="stat-card blue"><div class="stat-val" id="p-stat-cond">0</div><div class="stat-lbl">Conditions</div></div>
         </div>
         <div class="grid2">
-          <div class="card">
-            <div class="card-title">⚠ Critical Info</div>
-            <div id="p-critical-info">
-              <div class="empty"><div class="empty-icon">🩺</div><p>No profile set up yet. Add your details in My Profile.</p></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-title">🕐 Recent Activity</div>
-            <div id="p-recent-activity">
-              <div class="empty"><div class="empty-icon">📋</div><p>No visits recorded yet.</p></div>
-            </div>
-          </div>
+          <div class="card"><div class="card-title">⚠ Critical Info</div><div id="p-critical-info"></div></div>
+          <div class="card"><div class="card-title">🕐 Recent Activity</div><div id="p-recent-activity"></div></div>
         </div>
       </div>
 
-      <!-- PATIENT PROFILE SETUP -->
       <div class="page" id="p-page-profile">
         <div class="page-header">
           <div class="page-title">My Profile</div>
-          <div class="page-sub">This information appears to doctors when they scan your PulseID.</div>
+          <div class="page-sub">Detailed clinical information synced to the universal database.</div>
         </div>
-        <div class="card" style="max-width:700px">
-          <div class="card-title">Personal & Medical Information</div>
+        <div class="card" style="max-width:800px">
+          <div class="card-title">Personal Information</div>
           <div class="form-row">
-            <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="p-name" placeholder="Arjun Sharma"></div>
-            <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" id="p-roll" placeholder="21BCS142"></div>
+            <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="p-name"></div>
+            <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" id="p-roll"></div>
           </div>
           <div class="form-row3">
             <div class="form-group"><label class="form-label">Date of Birth</label><input class="form-input" type="date" id="p-dob"></div>
-            <div class="form-group"><label class="form-label">Gender</label>
-              <select class="form-input" id="p-gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
-            </div>
-            <div class="form-group"><label class="form-label">Blood Group</label>
-              <select class="form-input" id="p-blood"><option value="">Select</option><option>A+</option><option>A−</option><option>B+</option><option>B−</option><option>AB+</option><option>AB−</option><option>O+</option><option>O−</option></select>
-            </div>
+            <div class="form-group"><label class="form-label">Gender</label><select class="form-input" id="p-gender"><option>Male</option><option>Female</option><option>Other</option></select></div>
+            <div class="form-group"><label class="form-label">Blood Group</label><select class="form-input" id="p-blood"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
+          </div>
+          
+          <div class="divider"></div>
+          <div class="card-title">Hospital Pre-Admission Details</div>
+          <div class="form-row3">
+            <div class="form-group"><label class="form-label">Birthplace (State)</label><input class="form-input" id="p-birthplace"></div>
+            <div class="form-group"><label class="form-label">Religion</label><input class="form-input" id="p-religion"></div>
+            <div class="form-group"><label class="form-label">Marital Status</label><select class="form-input" id="p-marital"><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label class="form-label">Height (cm)</label><input class="form-input" type="number" id="p-height" placeholder="172"></div>
-            <div class="form-group"><label class="form-label">Weight (kg)</label><input class="form-input" type="number" id="p-weight" placeholder="68"></div>
+            <div class="form-group"><label class="form-label">Employer</label><input class="form-input" id="p-employer"></div>
+            <div class="form-group"><label class="form-label">Occupation</label><input class="form-input" id="p-occupation"></div>
           </div>
+
           <div class="divider"></div>
-          <div class="form-group"><label class="form-label">Emergency Contact Name</label><input class="form-input" id="p-ec-name" placeholder="Parent / Guardian name"></div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">Emergency Contact Phone</label><input class="form-input" id="p-ec-phone" placeholder="+91 98765 43210"></div>
-            <div class="form-group"><label class="form-label">Relationship</label><input class="form-input" id="p-ec-rel" placeholder="Father"></div>
+          <div class="card-title">Health Assessment Checklist</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.85rem; color: var(--text2);">
+            <div><input type="checkbox" id="p-cond-heart"> 1. Heart Disease</div>
+            <div><input type="checkbox" id="p-cond-diabetes"> 6. Diabetes</div>
+            <div><input type="checkbox" id="p-cond-bp"> 2. High Blood Pressure</div>
+            <div><input type="checkbox" id="p-cond-back"> 7. Joint/Back Injuries</div>
+            <div><input type="checkbox" id="p-cond-respiratory"> 3. Respiratory Disease</div>
+            <div><input type="checkbox" id="p-cond-heat"> 8. Heat Stroke History</div>
+            <div><input type="checkbox" id="p-cond-asthma"> 4. Asthma</div>
+            <div><input type="checkbox" id="p-cond-vertigo"> 9. Vertigo</div>
           </div>
+
           <div class="divider"></div>
-          <div class="form-group"><label class="form-label">Known Conditions (comma-separated)</label><input class="form-input" id="p-conditions" placeholder="Type 2 Diabetes, Hypertension"></div>
-          <div class="form-group"><label class="form-label">Additional Notes for Doctors</label><textarea class="form-input" id="p-notes" placeholder="Any relevant medical history, past surgeries, or information a doctor should know..."></textarea></div>
-          <div style="display:flex;gap:10px;margin-top:0.5rem;">
-            <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
-            <button class="btn btn-secondary" onclick="loadProfileFields()">Reset</button>
+          <div class="visit-section">
+            <div class="vs-title">Clinical History & Insurance</div>
+            <div class="form-group">
+              <div style="font-size: 0.8rem; margin-bottom: 8px; line-height: 1.8;">
+                <input type="checkbox" id="p-hospital"> Hospital treatment in last 12 months?<br>
+                <input type="checkbox" id="p-psych"> History of psychological illness?<br>
+                <input type="checkbox" id="p-objections"> Objections to blood transfusions/immunisations?<br>
+                <input type="checkbox" id="p-advance-directive"> I have an Advance Directive (Medical Will)
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Primary Insurance Co.</label><input class="form-input" id="p-ins-primary"></div>
+              <div class="form-group"><label class="form-label">Policy / ID #</label><input class="form-input" id="p-ins-id"></div>
+            </div>
+            <div class="form-group"><label class="form-label">Rare Blood Type Info (If any)</label><input class="form-input" id="p-rare-blood"></div>
           </div>
+
+          <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;" onclick="saveProfile()">Save & Sync Comprehensive Profile</button>
         </div>
       </div>
-
-      <!-- VISIT HISTORY -->
-      <div class="page" id="p-page-history">
-        <div class="page-header">
-          <div class="page-title">Visit History</div>
-          <div class="page-sub">All your medical visits, logged by your doctors.</div>
-        </div>
-        <div class="card">
-          <div class="timeline" id="p-history-list">
-            <div class="empty"><div class="empty-icon">📋</div><p>No visits recorded yet. Doctors will log visits after your appointments.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MEDICATIONS -->
-      <div class="page" id="p-page-medications">
-        <div class="page-header">
-          <div class="page-title">Medications</div>
-          <div class="page-sub">Your active and past prescriptions.</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-          <div style="font-size:0.825rem;color:var(--text2);">Doctors add prescriptions. You can also log self-managed medications.</div>
-          <button class="btn btn-secondary btn-sm" onclick="openMedModal()">+ Add Medication</button>
-        </div>
-        <div class="card">
-          <div id="p-med-list"><div class="empty"><div class="empty-icon">💊</div><p>No medications logged yet.</p></div></div>
-        </div>
-      </div>
-
-      <!-- ALLERGIES -->
+      
+      <div class="page" id="p-page-history"><div class="card"><div class="timeline" id="p-history-list"></div></div></div>
+      <div class="page" id="p-page-medications"><div class="card" id="p-med-list"></div></div>
       <div class="page" id="p-page-allergies">
-        <div class="page-header">
-          <div class="page-title">Allergies</div>
-          <div class="page-sub">Critical for safe treatment. Doctors see this immediately on scan.</div>
-        </div>
-        <div class="card" style="max-width:600px">
-          <div class="card-title">⚠ Known Allergies</div>
+        <div class="card">
           <div class="allergy-grid" id="p-allergy-list"></div>
           <div class="divider"></div>
-          <div style="display:flex;gap:8px;margin-top:0.5rem;">
-            <input class="form-input" id="allergy-input" placeholder="e.g. Penicillin, Aspirin, Peanuts..." style="flex:1;">
-            <select class="form-input" id="allergy-severity" style="width:130px;">
-              <option value="mild">Mild</option>
-              <option value="moderate">Moderate</option>
-              <option value="severe" selected>Severe</option>
-            </select>
+          <div style="display:flex;gap:8px;">
+            <input class="form-input" id="allergy-input" placeholder="Add Allergy">
+            <select class="form-input" id="allergy-severity" style="width:120px;"><option value="mild">Mild</option><option value="severe">Severe</option></select>
             <button class="btn btn-primary" onclick="addAllergy()">Add</button>
           </div>
-          <div style="font-size:0.75rem;color:var(--text3);margin-top:8px;">Press Enter or click Add. These show as red alerts to doctors.</div>
         </div>
       </div>
-
-      <!-- QR ID -->
-      <div class="page" id="p-page-qr">
-        <div class="page-header">
-          <div class="page-title">My PulseID</div>
-          <div class="page-sub">Show this to any doctor for instant access to your critical info.</div>
-        </div>
-        <div style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;">
-          <div class="card" style="width:fit-content;">
-            <div class="card-title">Emergency QR Code</div>
-            <div class="qr-display" id="qr-visual"></div>
-            <div style="font-size:0.72rem;color:var(--text3);margin-top:0.75rem;text-align:center;">Scan to load this patient's emergency profile</div>
-          </div>
-          <div class="card" style="flex:1;min-width:260px;">
-            <div class="card-title">What's visible on emergency scan</div>
-            <div id="qr-preview-info">
-              <div class="empty"><p>Set up your profile first to see what shows on your QR.</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="page" id="p-page-qr"><div class="card"><div class="qr-display" id="qr-visual"></div><div id="qr-preview-info"></div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ DOCTOR SHELL ══════════════ -->
 <div id="doctor-shell" class="app-shell">
   <div class="topbar">
     <div class="topbar-logo"><div class="pd"></div>PulseID</div>
@@ -477,172 +409,43 @@ textarea.form-input{resize:vertical;min-height:90px;}
   </div>
   <div class="app-body">
     <div class="sidebar">
-      <div class="nav-avatar">
-        <div class="av-circle" style="background:var(--blue-dim);border-color:var(--blue);color:var(--blue);">Dr</div>
-        <div><div class="av-name">Dr. Mehra</div><div class="av-sub">TIET Health Centre</div></div>
-      </div>
-      <div class="sidebar-section">Clinic</div>
-      <button class="nav-item active" onclick="showPage('d','dashboard',this)"><span class="ni">⬛</span>Dashboard</button>
-      <button class="nav-item" onclick="showPage('d','scan',this)"><span class="ni">⊞</span>Scan Patient</button>
-      <button class="nav-item" onclick="showPage('d','patients',this)"><span class="ni">👥</span>All Patients</button>
-      <div class="sidebar-section">Records</div>
-      <button class="nav-item" onclick="showPage('d','visits',this)"><span class="ni">📋</span>Visit Log</button>
+      <div class="nav-avatar"><div class="av-circle">Dr</div><div><div class="av-name">Dr. Mehra</div><div class="av-sub">Universal Access</div></div></div>
+      <button class="nav-item active" onclick="showPage('d','dashboard',this)">Dashboard</button>
+      <button class="nav-item" onclick="showPage('d','scan',this)">Scan Patient</button>
+      <button class="nav-item" onclick="showPage('d','patients',this)">Global Registry</button>
     </div>
     <div class="main-content">
-      <!-- DOCTOR DASHBOARD -->
       <div class="page active" id="d-page-dashboard">
-        <div class="page-header">
-          <div class="page-title">Clinic Overview</div>
-          <div class="page-sub">TIET Health Centre — Today's snapshot.</div>
-        </div>
         <div class="stat-grid">
-          <div class="stat-card blue"><div class="stat-val" id="d-stat-patients">0</div><div class="stat-lbl">Total Patients</div></div>
+          <div class="stat-card blue"><div class="stat-val" id="d-stat-patients">0</div><div class="stat-lbl">Global Patients</div></div>
           <div class="stat-card green"><div class="stat-val" id="d-stat-visits">0</div><div class="stat-lbl">Total Visits</div></div>
-          <div class="stat-card red"><div class="stat-val" id="d-stat-allergies">0</div><div class="stat-lbl">Patients w/ Allergies</div></div>
-          <div class="stat-card amber"><div class="stat-val" id="d-stat-active">0</div><div class="stat-lbl">Active Prescriptions</div></div>
         </div>
-        <div class="grid2">
-          <div class="card">
-            <div class="card-title">Recent Patients</div>
-            <div id="d-recent-patients"><div class="empty"><div class="empty-icon">👥</div><p>No patients scanned yet. Use the Scan Patient page.</p></div></div>
-          </div>
-          <div class="card">
-            <div class="card-title">Quick Actions</div>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:0.25rem;">
-              <button class="btn btn-primary" style="justify-content:flex-start;" onclick="showPage('d','scan',null)">⊞ Scan a Patient ID</button>
-              <button class="btn btn-secondary" style="justify-content:flex-start;" onclick="showPage('d','patients',null)">👥 Browse All Patients</button>
-              <button class="btn btn-ghost" style="justify-content:flex-start;" onclick="showPage('d','visits',null)">📋 View Visit Log</button>
-            </div>
-          </div>
-        </div>
+        <div class="card"><div class="card-title">Recent Global Activity</div><div id="d-recent-patients"></div></div>
       </div>
-
-      <!-- DOCTOR SCAN PAGE -->
       <div class="page" id="d-page-scan">
-        <div class="page-header">
-          <div class="page-title">Scan Patient</div>
-          <div class="page-sub">Enter a patient's Roll Number to pull their PulseID instantly.</div>
-        </div>
-        <div class="card" style="max-width:600px;margin-bottom:1.5rem;">
-          <div class="card-title">Patient Lookup</div>
+        <div class="card" style="max-width:500px;">
+          <div class="card-title">Cloud Search</div>
           <div style="display:flex;gap:10px;">
-            <input class="form-input" id="scan-roll-input" placeholder="Enter roll number (e.g. 21BCS142)" style="flex:1;" onkeydown="if(event.key==='Enter')scanPatient()">
+            <input class="form-input" id="scan-roll-input" placeholder="Enter Roll Number">
             <button class="btn btn-primary" onclick="scanPatient()">⊞ Scan</button>
           </div>
-          <div style="font-size:0.75rem;color:var(--text3);margin-top:8px;">In production this would read an NFC tag or QR code scan.</div>
         </div>
-        <div id="scan-result" style="display:none;"></div>
+        <div id="scan-result" style="margin-top:1.5rem;"></div>
       </div>
-
-      <!-- ALL PATIENTS -->
-      <div class="page" id="d-page-patients">
-        <div class="page-header">
-          <div class="page-title">All Patients</div>
-          <div class="page-sub">Everyone who has a PulseID in the system.</div>
-        </div>
-        <div class="search-bar"><span class="search-icon">🔍</span><input id="pat-search" placeholder="Search by name or roll number..." oninput="renderPatientList()"></div>
-        <div class="card">
-          <div id="d-patient-list"><div class="empty"><div class="empty-icon">👥</div><p>No patients registered yet.</p></div></div>
-        </div>
-      </div>
-
-      <!-- VISIT LOG -->
-      <div class="page" id="d-page-visits">
-        <div class="page-header">
-          <div class="page-title">Visit Log</div>
-          <div class="page-sub">All recorded visits across all patients.</div>
-        </div>
-        <div class="card">
-          <div class="timeline" id="d-visit-log"><div class="empty"><div class="empty-icon">📋</div><p>No visits logged yet.</p></div></div>
-        </div>
-      </div>
+      <div class="page" id="d-page-patients"><div class="search-bar"><input id="pat-search" placeholder="Search Global Registry..." oninput="renderPatientList()"></div><div class="card" id="d-patient-list"></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ MODALS ══════════════ -->
-
-<!-- Medication Modal -->
-<div class="overlay" id="med-modal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('med-modal')">✕</button>
-    <div class="modal-title">Add Medication</div>
-    <div class="modal-sub">Log a medication to your profile.</div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Medication Name</label><input class="form-input" id="med-name" placeholder="e.g. Metformin"></div>
-      <div class="form-group"><label class="form-label">Dosage</label><input class="form-input" id="med-dose" placeholder="e.g. 500mg"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Frequency</label>
-        <select class="form-input" id="med-freq"><option>Once daily</option><option>Twice daily</option><option>Three times daily</option><option>As needed</option><option>Weekly</option></select>
-      </div>
-      <div class="form-group"><label class="form-label">Status</label>
-        <select class="form-input" id="med-status"><option value="active">Active</option><option value="completed">Completed</option><option value="stopped">Stopped</option></select>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Prescribed For</label><input class="form-input" id="med-for" placeholder="e.g. Type 2 Diabetes"></div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="saveMedication()">Save Medication</button>
-  </div>
-</div>
-
-<!-- Log Visit Modal (Doctor) -->
-<div class="overlay" id="visit-modal">
-  <div class="modal-box" style="max-width:640px;">
-    <button class="modal-close" onclick="closeModal('visit-modal')">✕</button>
-    <div class="modal-title">Log Visit</div>
-    <div class="modal-sub" id="visit-modal-sub">Recording visit for patient.</div>
-
-    <div class="visit-section">
-      <div class="vs-title">Chief Complaint & Diagnosis</div>
-      <div class="form-group"><label class="form-label">Chief Complaint</label><input class="form-input" id="v-complaint" placeholder="What brought the patient in?"></div>
-      <div class="form-group"><label class="form-label">Diagnosis</label><input class="form-input" id="v-diagnosis" placeholder="e.g. Viral fever, Acute gastritis"></div>
-      <div class="form-group"><label class="form-label">Severity</label>
-        <select class="form-input" id="v-severity"><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option><option value="emergency">Emergency</option></select>
-      </div>
-    </div>
-
-    <div class="visit-section">
-      <div class="vs-title">Vitals</div>
-      <div class="form-row3">
-        <div class="form-group"><label class="form-label">Temperature (°F)</label><input class="form-input" type="number" id="v-temp" placeholder="98.6"></div>
-        <div class="form-group"><label class="form-label">Blood Pressure</label><input class="form-input" id="v-bp" placeholder="120/80"></div>
-        <div class="form-group"><label class="form-label">Heart Rate (bpm)</label><input class="form-input" type="number" id="v-hr" placeholder="72"></div>
-      </div>
-    </div>
-
-    <div class="visit-section">
-      <div class="vs-title">Prescription</div>
-      <div id="v-rx-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;"></div>
-      <button class="btn btn-ghost btn-sm" onclick="addRxRow()">+ Add Medication</button>
-    </div>
-
-    <div class="visit-section">
-      <div class="vs-title">Doctor's Notes</div>
-      <textarea class="form-input" id="v-notes" placeholder="Clinical notes, follow-up instructions, observations..."></textarea>
-    </div>
-
-    <div id="v-conflict-zone"></div>
-
-    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="saveVisit()">Save Visit Record</button>
-  </div>
-</div>
-
-<!-- Patient Detail Modal (Doctor) -->
-<div class="overlay" id="patient-detail-modal">
-  <div class="modal-box" style="max-width:680px;">
-    <button class="modal-close" onclick="closeModal('patient-detail-modal')">✕</button>
-    <div id="patient-detail-content"></div>
-  </div>
-</div>
-
+<div class="overlay" id="med-modal"><div class="modal-box"><h3>Add Med</h3><input id="med-name"><button onclick="saveMedication()">Save</button></div></div>
+<div class="overlay" id="patient-detail-modal"><div class="modal-box" id="patient-detail-content"></div></div>
 <div class="toast" id="toast"></div>
 
 <script type="module">
-  // 1. IMPORT FIREBASE SDKS
+  // 1. FIREBASE INITIALIZATION
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  // 2. YOUR FIREBASE CONFIG
   const firebaseConfig = {
     apiKey: "AIzaSyC3XBioqVEUNCT1GQohWHHydGQK4GicEg0",
     authDomain: "pulseid-30a49.firebaseapp.com",
@@ -653,29 +456,22 @@ textarea.form-input{resize:vertical;min-height:90px;}
     measurementId: "G-WTKLRJ1488"
   };
 
-  // 3. INITIALIZE FIREBASE & FIRESTORE
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  console.log("✅ Firebase initialized successfully");
 
-  // 4. THE UNIVERSAL DATABASE LOGIC
+  // 2. UNIVERSAL DATABASE LOGIC
   const DB = {
-    get(key){ 
-      try{ 
-        return JSON.parse(localStorage.getItem('pulseid_'+key)||'null'); 
-      }catch(e){ 
-        return null; 
-      } 
-    },
-    set(key,val){ 
-      localStorage.setItem('pulseid_'+key, JSON.stringify(val)); 
-    },
+    get(key){ try{ return JSON.parse(localStorage.getItem('pulseid_'+key)||'null'); }catch(e){ return null; } },
+    set(key,val){ localStorage.setItem('pulseid_'+key, JSON.stringify(val)); },
     
     getPatient(){ 
       return this.get('patient') || {
-        name:'',roll:'',dob:'',gender:'',blood:'',height:'',weight:'',
-        ecName:'',ecPhone:'',ecRel:'',conditions:'',notes:'',
-        allergies:[],medications:[]
+        name:'', roll:'', dob:'', gender:'', blood:'', height:'', weight:'', 
+        ecName:'', ecPhone:'', ecRel:'', conditions:'', notes:'', 
+        allergies:[], medications:[],
+        birthplace:'', religion:'', marital:'', employer:'', occupation:'', 
+        insPrimary:'', insId:'', advanceDirective: false,
+        specificConditions: {}
       }; 
     },
 
@@ -685,735 +481,96 @@ textarea.form-input{resize:vertical;min-height:90px;}
       return allVisits;
     },
 
-    saveVisit(v){ 
-      const vs = this.get('visits') || []; 
-      vs.unshift(v); 
-      this.set('visits', vs); 
-      this.syncToCloud('visit', v); 
-    },
-
-    savePatient(p){ 
-      this.set('patient', p); 
-      this.syncToCloud('patient', p);
-    },
+    saveVisit(v){ const vs = this.getVisits(); vs.unshift(v); this.set('visits',vs); this.syncToCloud('visit', v); },
+    savePatient(p){ this.set('patient',p); this.syncToCloud('patient', p); },
 
     async syncToCloud(type, data) {
       try {
-        const docId = type === 'patient' ? data.roll : data.id;
-        if (!docId) {
-          console.warn("No docId for sync");
-          return;
-        }
-        await setDoc(doc(db, type + "s", docId.toUpperCase()), data);
-        console.log(`✅ [PulseID] ${type} synced to cloud:`, docId);
-        showToast(`✓ Synced to cloud`, 'green');
-      } catch (e) {
-        console.error("❌ Cloud sync error:", e);
-        showToast(`Cloud sync failed: ${e.message}`, 'red');
-      }
+        const id = type === 'patient' ? data.roll : data.id;
+        if (!id) return;
+        await setDoc(doc(db, type + "s", id.toUpperCase()), data);
+        console.log(`Synced ${type} globally.`);
+      } catch (e) { console.error("Cloud Error:", e); }
     }
   };
 
-  // 5. GLOBAL STATE
-  let currentPortal = null;
-  let visitTargetRoll = null;
-  let rxRowCount = 0;
-  let currentViewingPatient = null;
-
-  // 6. UI HELPER FUNCTIONS
-  function showToast(msg, type = 'green') { 
-    const t = document.getElementById('toast'); 
-    t.textContent = msg; 
-    t.className = `toast ${type} show`; 
-    setTimeout(() => t.classList.remove('show'), 3000); 
-  }
-
-  function closeModal(id) { 
-    document.getElementById(id).classList.remove('open'); 
-  }
-
-  function formatDate(iso) { 
-    if (!iso) return '';
-    return new Date(iso).toLocaleDateString('en-IN'); 
-  }
-
-  function initials(name) { 
-    return name ? name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() : '?'; 
-  }
-
-  // 7. PORTAL NAVIGATION
-  function enterPortal(type) {
-    document.getElementById('landing').style.display = 'none';
-    currentPortal = type;
-    const shell = document.getElementById(type + '-shell');
-    shell.classList.add('active');
+  // 3. UI FUNCTIONS (Expanded for Medical Form)
+  async function saveProfile() {
+    const p = DB.getPatient();
+    const fields = ['name', 'roll', 'dob', 'gender', 'blood', 'ecName', 'ecPhone', 'ecRel', 'conditions', 'notes', 'birthplace', 'religion', 'marital', 'employer', 'occupation', 'insPrimary', 'insId', 'rare-blood'];
     
-    if (type === 'patient') { 
-      loadPatientPortal(); 
-    } else { 
-      loadDoctorPortal(); 
-    }
-  }
-
-  function goHome() {
-    document.getElementById('landing').style.display = 'flex';
-    document.getElementById('patient-shell').classList.remove('active');
-    document.getElementById('doctor-shell').classList.remove('active');
-    currentPortal = null;
-  }
-
-  function showPage(portal, page, btn) {
-    document.querySelectorAll('#' + portal + '-shell .page').forEach(p => p.classList.remove('active'));
-    const el = document.getElementById(portal + '-page-' + page);
-    if (el) el.classList.add('active');
+    fields.forEach(f => {
+      const el = document.getElementById('p-' + f);
+      if (el) p[f.replace('-','')] = el.value.trim();
+    });
     
-    if (btn) {
-      document.querySelectorAll('#' + portal + '-shell .nav-item').forEach(n => n.classList.remove('active'));
-      btn.classList.add('active');
-    }
-    
-    // Load page-specific content
-    if (portal === 'p') {
-      if (page === 'dashboard') loadPatientDashboard();
-      else if (page === 'history') renderPatientHistory();
-      else if (page === 'medications') renderMedList();
-      else if (page === 'allergies') renderAllergyList();
-      else if (page === 'qr') renderQR();
-    } else {
-      if (page === 'dashboard') loadDoctorDashboard();
-      else if (page === 'patients') renderPatientList();
-      else if (page === 'visits') renderVisitLog();
-    }
-  }
+    p.advanceDirective = document.getElementById('p-advance-directive').checked;
+    p.hospitalHistory = document.getElementById('p-hospital').checked;
+    p.psychHistory = document.getElementById('p-psych').checked;
+    p.treatmentObjections = document.getElementById('p-objections').checked;
 
-  // 8. PATIENT PORTAL FUNCTIONS
-  function loadPatientPortal() { 
-    loadProfileFields(); 
-    loadPatientDashboard(); 
+    const condChecks = ['heart', 'diabetes', 'bp', 'back', 'respiratory', 'heat', 'asthma', 'vertigo'];
+    p.specificConditions = {};
+    condChecks.forEach(c => {
+      const el = document.getElementById(`p-cond-${c}`);
+      if(el) p.specificConditions[c] = el.checked;
+    });
+
+    DB.savePatient(p);
+    showToast('✓ Profile Synced to Global Cloud', 'green');
+    loadPatientDashboard();
   }
 
   function loadProfileFields() {
     const p = DB.getPatient();
-    const fields = ['name', 'roll', 'dob', 'gender', 'blood', 'height', 'weight', 'ecName', 'ecPhone', 'ecRel', 'conditions', 'notes'];
+    const fields = ['name', 'roll', 'dob', 'gender', 'blood', 'birthplace', 'religion', 'marital', 'employer', 'occupation', 'insPrimary', 'insId', 'rare-blood'];
     fields.forEach(f => {
       const el = document.getElementById('p-' + f);
-      if (el) el.value = p[f] || '';
-    });
-  }
-
-  async function saveProfile() {
-    const p = DB.getPatient();
-    const fields = ['name', 'roll', 'dob', 'gender', 'blood', 'height', 'weight', 'ecName', 'ecPhone', 'ecRel', 'conditions', 'notes'];
-    fields.forEach(f => {
-      const el = document.getElementById('p-' + f);
-      if (el) p[f] = el.value.trim();
+      if (el) el.value = p[f.replace('-','')] || '';
     });
     
-    DB.savePatient(p);
-    updatePatientNav(p);
-    showToast('✓ Profile saved successfully!', 'green');
+    document.getElementById('p-advance-directive').checked = p.advanceDirective || false;
+    document.getElementById('p-hospital').checked = p.hospitalHistory || false;
     
-    // Refresh dashboard
-    loadPatientDashboard();
-  }
-
-  function updatePatientNav(p) {
-    const init = p.name ? initials(p.name) : '?';
-    const avInit = document.getElementById('p-av-init');
-    const avName = document.getElementById('p-av-name');
-    if (avInit) avInit.textContent = init;
-    if (avName) avName.textContent = p.name || 'My Profile';
-  }
-
-  function loadPatientDashboard() {
-    const p = DB.getPatient();
-    const vs = DB.getVisits(p.roll);
-    
-    // Update stats
-    document.getElementById('p-stat-visits').textContent = vs.length;
-    document.getElementById('p-stat-meds').textContent = p.medications?.filter(m => m.status === 'active').length || 0;
-    document.getElementById('p-stat-allergy').textContent = p.allergies?.length || 0;
-    document.getElementById('p-stat-cond').textContent = p.conditions ? p.conditions.split(',').filter(c => c.trim()).length : 0;
-    
-    // Update greeting
-    const hour = new Date().getHours();
-    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-    document.getElementById('p-dash-greeting').textContent = `${greeting}, ${p.name?.split(' ')[0] || ''}.`;
-    
-    // Show onboarding prompt if profile incomplete
-    const prompt = document.getElementById('p-onboard-prompt');
-    if (prompt) {
-      prompt.style.display = (p.name && p.roll && p.blood) ? 'none' : 'block';
-    }
-    
-    // Critical info
-    const criticalDiv = document.getElementById('p-critical-info');
-    if (criticalDiv) {
-      if (p.allergies?.length || p.conditions) {
-        criticalDiv.innerHTML = `
-          ${p.allergies?.length ? `<div class="tag tag-red" style="margin-bottom:8px;">⚠ ${p.allergies.length} allergies</div>` : ''}
-          ${p.conditions ? `<div><strong>Conditions:</strong> ${p.conditions}</div>` : ''}
-          <div style="margin-top:8px;"><strong>Blood Group:</strong> ${p.blood || 'Not set'}</div>
-          <div><strong>Emergency Contact:</strong> ${p.ecName || 'Not set'} ${p.ecPhone ? '· ' + p.ecPhone : ''}</div>
-        `;
-      } else {
-        criticalDiv.innerHTML = `<div class="empty"><div class="empty-icon">🩺</div><p>No profile set up yet. Add your details in My Profile.</p></div>`;
-      }
-    }
-    
-    // Recent activity
-    const recentDiv = document.getElementById('p-recent-activity');
-    if (recentDiv) {
-      if (vs.length > 0) {
-        recentDiv.innerHTML = vs.slice(0, 3).map(v => `
-          <div class="tl-item">
-            <div class="tl-date">${formatDate(v.date)}</div>
-            <div class="tl-content">
-              <div class="tl-title">${v.diagnosis || 'Visit'}</div>
-              <div class="tl-sub">${v.chiefComplaint || ''}</div>
-            </div>
-          </div>
-        `).join('');
-      } else {
-        recentDiv.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>No visits recorded yet.</p></div>`;
-      }
-    }
-    
-    updatePatientNav(p);
-  }
-
-  function renderPatientHistory() {
-    const p = DB.getPatient();
-    const vs = DB.getVisits(p.roll);
-    const container = document.getElementById('p-history-list');
-    
-    if (container) {
-      if (vs.length === 0) {
-        container.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><p>No visits recorded yet.</p></div>`;
-        return;
-      }
-      
-      container.innerHTML = vs.map(v => `
-        <div class="tl-item">
-          <div class="tl-dot-col"><div class="tl-dot ${v.severity === 'emergency' ? 'red' : v.severity === 'severe' ? 'amber' : 'green'}"></div></div>
-          <div class="tl-date">${formatDate(v.date)}</div>
-          <div class="tl-content">
-            <div class="tl-title">${v.diagnosis || 'Medical Visit'}</div>
-            <div class="tl-sub">${v.chiefComplaint || ''}</div>
-            <div class="tl-doctor">Dr. ${v.doctor || 'Mehra'} · ${v.vitals || ''}</div>
-          </div>
-        </div>
-      `).join('');
-    }
-  }
-
-  function renderMedList() {
-    const p = DB.getPatient();
-    const container = document.getElementById('p-med-list');
-    
-    if (container) {
-      if (!p.medications || p.medications.length === 0) {
-        container.innerHTML = `<div class="empty"><div class="empty-icon">💊</div><p>No medications logged yet.</p></div>`;
-        return;
-      }
-      
-      container.innerHTML = p.medications.map(m => `
-        <div class="med-item">
-          <div>
-            <div class="med-name">${m.name} ${m.dosage}</div>
-            <div class="med-detail">${m.frequency} · For: ${m.for || '—'}</div>
-          </div>
-          <div class="med-status">
-            <span class="tag ${m.status === 'active' ? 'tag-green' : 'tag-gray'}">${m.status}</span>
-          </div>
-        </div>
-      `).join('');
-    }
-  }
-
-  function renderAllergyList() {
-    const p = DB.getPatient();
-    const container = document.getElementById('p-allergy-list');
-    
-    if (container) {
-      if (!p.allergies || p.allergies.length === 0) {
-        container.innerHTML = '';
-        return;
-      }
-      
-      container.innerHTML = p.allergies.map(a => `
-        <div class="allergy-chip">
-          ⚠ ${a.name}
-          <span class="tag tag-${a.severity === 'severe' ? 'red' : 'amber'}" style="margin-left:4px;">${a.severity}</span>
-          <span class="rm" onclick="removeAllergy('${a.name}')">✕</span>
-        </div>
-      `).join('');
-    }
-  }
-
-  function addAllergy() {
-    const input = document.getElementById('allergy-input');
-    const severity = document.getElementById('allergy-severity');
-    const name = input.value.trim();
-    
-    if (!name) {
-      showToast('Enter an allergy name', 'red');
-      return;
-    }
-    
-    const p = DB.getPatient();
-    if (!p.allergies) p.allergies = [];
-    
-    if (p.allergies.find(a => a.name.toLowerCase() === name.toLowerCase())) {
-      showToast('Allergy already exists', 'amber');
-      return;
-    }
-    
-    p.allergies.push({ name, severity: severity.value });
-    DB.savePatient(p);
-    
-    input.value = '';
-    renderAllergyList();
-    showToast('Allergy added', 'green');
-  }
-
-  window.removeAllergy = function(name) {
-    const p = DB.getPatient();
-    p.allergies = p.allergies.filter(a => a.name !== name);
-    DB.savePatient(p);
-    renderAllergyList();
-    showToast('Allergy removed', 'green');
-  };
-
-  function renderQR() {
-    const p = DB.getPatient();
-    const qrDiv = document.getElementById('qr-visual');
-    const previewDiv = document.getElementById('qr-preview-info');
-    
-    if (qrDiv) {
-      // Simple QR-like grid (visual representation)
-      qrDiv.innerHTML = `
-        <div class="qr-grid">
-          ${Array(49).fill(0).map(() => Math.random() > 0.5 ? '<div class="qr-cell b"></div>' : '<div class="qr-cell w"></div>').join('')}
-        </div>
-        <div style="font-family:monospace;margin-top:8px;font-size:12px;">${p.roll || 'SETUP_PROFILE'}</div>
-      `;
-    }
-    
-    if (previewDiv) {
-      if (p.name && p.roll) {
-        previewDiv.innerHTML = `
-          <div><strong>${p.name}</strong></div>
-          <div style="font-size:0.8rem;color:var(--text2);">${p.roll} · ${p.blood || 'Blood group not set'}</div>
-          <div style="margin-top:8px;">${p.allergies?.length ? '⚠ Allergies: ' + p.allergies.map(a=>a.name).join(', ') : 'No known allergies'}</div>
-          <div>Emergency: ${p.ecName || 'Not set'} ${p.ecPhone || ''}</div>
-        `;
-      } else {
-        previewDiv.innerHTML = `<div class="empty"><p>Set up your profile first to see what shows on your QR.</p></div>`;
-      }
-    }
-  }
-
-  function openMedModal() {
-    document.getElementById('med-modal').classList.add('open');
-  }
-
-  function saveMedication() {
-    const name = document.getElementById('med-name').value.trim();
-    const dose = document.getElementById('med-dose').value.trim();
-    const freq = document.getElementById('med-freq').value;
-    const status = document.getElementById('med-status').value;
-    const medFor = document.getElementById('med-for').value.trim();
-    
-    if (!name) {
-      showToast('Medication name required', 'red');
-      return;
-    }
-    
-    const p = DB.getPatient();
-    if (!p.medications) p.medications = [];
-    
-    p.medications.push({
-      name, dosage: dose, frequency: freq, status, for: medFor,
-      startDate: new Date().toISOString()
+    const condChecks = ['heart', 'diabetes', 'bp', 'back', 'respiratory', 'heat', 'asthma', 'vertigo'];
+    condChecks.forEach(c => {
+      const el = document.getElementById(`p-cond-${c}`);
+      if(el) el.checked = p.specificConditions?.[c] || false;
     });
-    
-    DB.savePatient(p);
-    closeModal('med-modal');
-    renderMedList();
-    showToast('Medication saved', 'green');
-    
-    // Clear form
-    document.getElementById('med-name').value = '';
-    document.getElementById('med-dose').value = '';
-    document.getElementById('med-for').value = '';
-  }
-
-  // 9. DOCTOR PORTAL FUNCTIONS
-  function loadDoctorPortal() {
-    loadDoctorDashboard();
-  }
-
-  async function loadDoctorDashboard() {
-    try {
-      const patientsSnap = await getDocs(collection(db, "patients"));
-      const visitsSnap = await getDocs(collection(db, "visits"));
-      
-      const patientCount = patientsSnap.size;
-      const visitCount = visitsSnap.size;
-      
-      let allergyCount = 0;
-      let activeMeds = 0;
-      
-      patientsSnap.forEach(doc => {
-        const p = doc.data();
-        if (p.allergies?.length) allergyCount++;
-        if (p.medications) {
-          activeMeds += p.medications.filter(m => m.status === 'active').length;
-        }
-      });
-      
-      document.getElementById('d-stat-patients').textContent = patientCount;
-      document.getElementById('d-stat-visits').textContent = visitCount;
-      document.getElementById('d-stat-allergies').textContent = allergyCount;
-      document.getElementById('d-stat-active').textContent = activeMeds;
-      
-      // Recent patients
-      const recentDiv = document.getElementById('d-recent-patients');
-      if (recentDiv && patientCount > 0) {
-        const patients = [];
-        patientsSnap.forEach(doc => patients.push(doc.data()));
-        
-        recentDiv.innerHTML = patients.slice(0, 5).map(p => `
-          <div class="patient-row" onclick="viewPatientDetail('${p.roll}')">
-            <div class="pat-av">${initials(p.name)}</div>
-            <div style="flex:1;">
-              <div class="pat-name">${p.name}</div>
-              <div class="pat-meta">${p.roll} · ${p.blood || '—'}</div>
-            </div>
-          </div>
-        `).join('');
-      }
-    } catch (e) {
-      console.error("Dashboard error:", e);
-    }
   }
 
   async function scanPatient() {
     const roll = document.getElementById('scan-roll-input').value.trim().toUpperCase();
     const result = document.getElementById('scan-result');
+    if (!roll) return showToast('Enter roll number', 'red');
     
-    if (!roll) { 
-      showToast('Enter a roll number', 'red'); 
-      return; 
-    }
-
-    showToast('Searching database...', 'blue');
-
+    showToast('Querying Cloud...', 'blue');
     try {
       const docSnap = await getDoc(doc(db, "patients", roll));
-
       if (docSnap.exists()) {
         const p = docSnap.data();
-        currentViewingPatient = p;
         result.style.display = 'block';
-        result.innerHTML = buildPatientDetailCard(p);
-        showToast('Patient found!', 'green');
+        result.innerHTML = `<div class="card"><h3>${p.name}</h3><p>Roll: ${p.roll}</p><div class="tag tag-red">${p.blood}</div><p>Religion: ${p.religion || 'N/A'}</p></div>`;
       } else {
-        result.style.display = 'block';
-        result.innerHTML = `<div class="card"><div class="empty"><p>No patient found with roll number "${roll}"</p><button class="btn btn-primary btn-sm" onclick="createNewPatient('${roll}')">Create New Patient</button></div></div>`;
-        showToast('Patient not found', 'amber');
+        result.innerHTML = `<div class="card">No global record for ${roll}</div>`;
       }
-    } catch (e) {
-      console.error("Scan error:", e);
-      showToast('Error searching: ' + e.message, 'red');
-    }
+    } catch (e) { console.error(e); }
   }
 
-  function buildPatientDetailCard(p) {
-    const vs = DB.getVisits(p.roll);
-    
-    return `
-      <div class="profile-hero">
-        <div class="profile-hero-top">
-          <div class="profile-av">${initials(p.name)}</div>
-          <div>
-            <div class="profile-name">${p.name}</div>
-            <div class="profile-meta">${p.roll} · ${p.blood || 'Blood group not set'} · ${p.gender || ''}</div>
-            <div class="profile-tags">
-              ${p.allergies?.length ? `<span class="tag tag-red">⚠ ${p.allergies.length} allergies</span>` : ''}
-              ${p.conditions ? `<span class="tag tag-amber">${p.conditions.split(',')[0]}</span>` : ''}
-            </div>
-          </div>
-        </div>
-        <div class="profile-quick">
-          <div class="pq-item"><div class="pq-label">Allergies</div><div class="pq-val ${p.allergies?.length ? 'danger' : 'ok'}">${p.allergies?.length || 'None'}</div></div>
-          <div class="pq-item"><div class="pq-label">Conditions</div><div class="pq-val">${p.conditions ? p.conditions.split(',').length : '0'}</div></div>
-          <div class="pq-item"><div class="pq-label">Visits</div><div class="pq-val">${vs.length}</div></div>
-          <div class="pq-item"><div class="pq-label">Emergency Contact</div><div class="pq-val">${p.ecName || '—'}</div></div>
-          <div class="pq-item"><div class="pq-label">Blood Group</div><div class="pq-val">${p.blood || '—'}</div></div>
-        </div>
-      </div>
-      
-      ${p.allergies?.length ? `
-        <div class="conflict-box">
-          <div class="conflict-icon">⚠️</div>
-          <div class="conflict-text">
-            <strong>Allergy Alert</strong>
-            ${p.allergies.map(a => `${a.name} (${a.severity})`).join(' · ')}
-          </div>
-        </div>
-      ` : ''}
-      
-      <div class="grid2" style="margin-top:1rem;">
-        <div class="card">
-          <div class="card-title">Recent Visits</div>
-          ${vs.length > 0 ? vs.slice(0, 3).map(v => `
-            <div class="tl-item">
-              <div class="tl-date">${formatDate(v.date)}</div>
-              <div class="tl-content">
-                <div class="tl-title">${v.diagnosis || 'Visit'}</div>
-                <div class="tl-sub">${v.chiefComplaint || ''}</div>
-              </div>
-            </div>
-          `).join('') : '<p class="empty">No visits recorded</p>'}
-        </div>
-        <div class="card">
-          <div class="card-title">Current Medications</div>
-          ${p.medications?.filter(m => m.status === 'active').map(m => `
-            <div class="med-item">
-              <div><span class="med-name">${m.name}</span> <span class="med-detail">${m.dosage}</span></div>
-              <div class="med-detail">${m.frequency}</div>
-            </div>
-          `).join('') || '<p class="empty">No active medications</p>'}
-        </div>
-      </div>
-      
-      <div style="display:flex;gap:10px;margin-top:1rem;">
-        <button class="btn btn-primary" onclick="openVisitModal('${p.roll}')">📋 Log Visit</button>
-        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Summary</button>
-      </div>
-    `;
-  }
+  // --- STANDARD BOILERPLATE UI LOGIC ---
+  function enterPortal(type){ document.getElementById('landing').style.display='none'; currentPortal = type; document.getElementById(type+'-shell').classList.add('active'); if(type==='patient') loadPatientPortal(); else loadDoctorPortal(); }
+  function goHome(){ document.getElementById('landing').style.display='flex'; document.querySelectorAll('.app-shell').forEach(s=>s.classList.remove('active')); }
+  function showPage(portal, page, btn){ document.querySelectorAll('#'+portal+'-shell .page').forEach(p=>p.classList.remove('active')); document.getElementById(portal+'-page-'+page).classList.add('active'); }
+  function formatDate(iso){ if(!iso) return '—'; return new Date(iso).toLocaleDateString(); }
+  function showToast(msg, type){ const t=document.getElementById('toast'); t.textContent=msg; t.className=`toast ${type} show`; setTimeout(()=>t.classList.remove('show'),3000); }
+  function initials(name){ return name ? name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '?'; }
+  function loadPatientDashboard(){ const p = DB.getPatient(); document.getElementById('p-stat-visits').textContent = DB.getVisits(p.roll).length; }
+  function loadDoctorDashboard() { getDocs(collection(db, "patients")).then(snap => document.getElementById('d-stat-patients').textContent = snap.size); }
 
-  window.createNewPatient = function(roll) {
-    const p = {
-      name: '',
-      roll: roll,
-      dob: '',
-      gender: '',
-      blood: '',
-      height: '',
-      weight: '',
-      ecName: '',
-      ecPhone: '',
-      ecRel: '',
-      conditions: '',
-      notes: '',
-      allergies: [],
-      medications: []
-    };
-    
-    // Open a form or redirect
-    showToast('Create patient profile in Patient Portal', 'blue');
-  };
-
-  async function renderPatientList() {
-    const container = document.getElementById('d-patient-list');
-    const searchInput = document.getElementById('pat-search');
-    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-    
-    if (!container) return;
-    
-    container.innerHTML = '<div class="empty">Loading patients...</div>';
-
-    try {
-      const querySnapshot = await getDocs(collection(db, "patients"));
-      
-      if (querySnapshot.empty) {
-        container.innerHTML = '<div class="empty"><div class="empty-icon">👥</div><p>No patients registered yet.</p></div>';
-        return;
-      }
-
-      const patients = [];
-      querySnapshot.forEach(doc => patients.push(doc.data()));
-      
-      const filtered = patients.filter(p => 
-        !searchTerm || 
-        p.name?.toLowerCase().includes(searchTerm) || 
-        p.roll?.toLowerCase().includes(searchTerm)
-      );
-      
-      if (filtered.length === 0) {
-        container.innerHTML = '<div class="empty"><p>No matching patients</p></div>';
-        return;
-      }
-      
-      container.innerHTML = filtered.map(p => `
-        <div class="patient-row" onclick="viewPatientDetail('${p.roll}')">
-          <div class="pat-av">${initials(p.name)}</div>
-          <div style="flex:1;">
-            <div class="pat-name">${p.name}</div>
-            <div class="pat-meta">${p.roll} · ${p.blood || '—'} · ${p.gender || ''}</div>
-          </div>
-          <div class="pat-right">
-            <div class="pat-last">${p.allergies?.length ? '⚠ Allergies' : ''}</div>
-          </div>
-        </div>
-      `).join('');
-      
-    } catch (e) {
-      console.error("List error:", e);
-      container.innerHTML = '<div class="empty"><p>Error loading patients</p></div>';
-    }
-  }
-
-  window.viewPatientDetail = async function(roll) {
-    try {
-      const docSnap = await getDoc(doc(db, "patients", roll.toUpperCase()));
-      if (docSnap.exists()) {
-        const p = docSnap.data();
-        currentViewingPatient = p;
-        const modal = document.getElementById('patient-detail-modal');
-        const content = document.getElementById('patient-detail-content');
-        content.innerHTML = buildPatientDetailCard(p);
-        modal.classList.add('open');
-      }
-    } catch (e) {
-      console.error("View error:", e);
-    }
-  };
-
-  function renderVisitLog() {
-    const container = document.getElementById('d-visit-log');
-    if (!container) return;
-    
-    const visits = DB.getVisits();
-    
-    if (visits.length === 0) {
-      container.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>No visits logged yet.</p></div>';
-      return;
-    }
-    
-    container.innerHTML = visits.map(v => `
-      <div class="tl-item">
-        <div class="tl-dot-col"><div class="tl-dot ${v.severity === 'emergency' ? 'red' : v.severity === 'severe' ? 'amber' : 'green'}"></div></div>
-        <div class="tl-date">${formatDate(v.date)}</div>
-        <div class="tl-content">
-          <div class="tl-title">${v.patientName || v.roll} · ${v.diagnosis || 'Visit'}</div>
-          <div class="tl-sub">${v.chiefComplaint || ''}</div>
-          <div class="tl-doctor">Dr. ${v.doctor || 'Mehra'}</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  window.openVisitModal = function(roll) {
-    visitTargetRoll = roll;
-    document.getElementById('visit-modal-sub').textContent = `Recording visit for ${roll}`;
-    document.getElementById('v-rx-list').innerHTML = '';
-    rxRowCount = 0;
-    document.getElementById('visit-modal').classList.add('open');
-  };
-
-  window.addRxRow = function() {
-    const container = document.getElementById('v-rx-list');
-    const id = rxRowCount++;
-    container.innerHTML += `
-      <div class="form-row" id="rx-${id}" style="margin-bottom:4px;">
-        <input class="form-input" placeholder="Medication" id="rx-name-${id}" style="flex:2;">
-        <input class="form-input" placeholder="Dose" id="rx-dose-${id}" style="flex:1;">
-        <input class="form-input" placeholder="Freq" id="rx-freq-${id}" style="flex:1;">
-        <button class="btn-ghost btn-sm" onclick="document.getElementById('rx-${id}').remove()">✕</button>
-      </div>
-    `;
-  };
-
-  async function saveVisit() {
-    if (!visitTargetRoll) {
-      showToast('No patient selected', 'red');
-      return;
-    }
-    
-    const visit = {
-      id: 'v_' + Date.now(),
-      roll: visitTargetRoll,
-      patientName: currentViewingPatient?.name || '',
-      date: new Date().toISOString(),
-      chiefComplaint: document.getElementById('v-complaint')?.value || '',
-      diagnosis: document.getElementById('v-diagnosis')?.value || '',
-      severity: document.getElementById('v-severity')?.value || 'mild',
-      vitals: `T:${document.getElementById('v-temp')?.value || '—'} BP:${document.getElementById('v-bp')?.value || '—'} HR:${document.getElementById('v-hr')?.value || '—'}`,
-      notes: document.getElementById('v-notes')?.value || '',
-      doctor: 'Mehra',
-      prescriptions: []
-    };
-    
-    // Collect prescriptions
-    for (let i = 0; i < rxRowCount; i++) {
-      const name = document.getElementById(`rx-name-${i}`)?.value;
-      if (name) {
-        visit.prescriptions.push({
-          name,
-          dose: document.getElementById(`rx-dose-${i}`)?.value || '',
-          freq: document.getElementById(`rx-freq-${i}`)?.value || ''
-        });
-      }
-    }
-    
-    DB.saveVisit(visit);
-    
-    // Also add to patient's medications if prescriptions exist
-    if (currentViewingPatient && visit.prescriptions.length > 0) {
-      if (!currentViewingPatient.medications) currentViewingPatient.medications = [];
-      visit.prescriptions.forEach(rx => {
-        currentViewingPatient.medications.push({
-          name: rx.name,
-          dosage: rx.dose,
-          frequency: rx.freq,
-          status: 'active',
-          for: visit.diagnosis,
-          startDate: new Date().toISOString(),
-          prescribedBy: 'Dr. Mehra'
-        });
-      });
-      
-      // Update patient in cloud
-      try {
-        await setDoc(doc(db, "patients", visitTargetRoll.toUpperCase()), currentViewingPatient);
-      } catch (e) {
-        console.error("Failed to update patient meds:", e);
-      }
-    }
-    
-    closeModal('visit-modal');
-    showToast('Visit saved successfully', 'green');
-    
-    // Refresh displays
-    if (currentPortal === 'd') {
-      loadDoctorDashboard();
-    }
-  }
-
-  // 10. EXPOSE ALL FUNCTIONS TO WINDOW
-  window.enterPortal = enterPortal;
-  window.goHome = goHome;
-  window.showPage = showPage;
-  window.saveProfile = saveProfile;
+  // EXPOSE TO WINDOW
+  window.enterPortal = enterPortal; window.goHome = goHome; window.showPage = showPage;
+  window.saveProfile = saveProfile; window.scanPatient = scanPatient;
   window.loadProfileFields = loadProfileFields;
-  window.scanPatient = scanPatient;
-  window.renderPatientList = renderPatientList;
-  window.closeModal = closeModal;
-  window.openMedModal = openMedModal;
-  window.saveMedication = saveMedication;
-  window.addAllergy = addAllergy;
-  window.renderAllergyList = renderAllergyList;
-  window.openVisitModal = openVisitModal;
-  window.addRxRow = addRxRow;
-  window.saveVisit = saveVisit;
-
-  // Initialize
-  console.log("🚀 PulseID ready with Firebase!");
 </script>
 </body>
 </html>
